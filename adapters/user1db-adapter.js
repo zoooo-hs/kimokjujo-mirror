@@ -14,7 +14,7 @@ adapter.write = function(user1, cb) {
 
     var result = this.resultCode.OK;
     
-    cb(result);
+    cb(resultCode);
 }
 
 adapter.search = function(user1Id, cols, cb) {
