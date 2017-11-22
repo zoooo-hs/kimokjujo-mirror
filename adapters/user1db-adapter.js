@@ -3,7 +3,7 @@ const user1Data = require('../mockup/user1-mockup');
 
 var adapter = {};
 
-var result_code = {
+adapter.resultCode = {
     "OK": 1,
     "Fail": 2
 }
@@ -12,7 +12,7 @@ adapter.write = function(user1, cb) {
 
     // 들어온 유저1에 대한 디비 저장 후 컬백 함수 실행
 
-    var result = result_code.OK;
+    var result = this.resultCode.OK;
     
     cb(result);
 }
@@ -31,7 +31,7 @@ adapter.search = function(user1Id, cols, cb) {
     }
 
 
-    var result = result_code.OK;
+    var result = this.resultCode.OK;
 
     cb(result, rows);
 }
