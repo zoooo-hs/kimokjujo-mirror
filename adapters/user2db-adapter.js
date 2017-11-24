@@ -10,20 +10,26 @@ adapter.write = function(user2, cb){
     var sql = "INSERT INTO user2 (id, password,address,contact,financialInfo,name) VALUES (?,?,?,?,?,?)";
 
     pool.getConnection(function(err, connection) {
-        connection.query(sql,p,function(err, rows) {
-            if(!err){
-                console.log('user2 insert');
-                //res.redirect('http://localhost:5001/exercise/list');
-                result = resultCode.OK;
-            }
-            else{
-                console.log('id is not unique.');
-                result = resultCode.Fail;
-            }
+        if (err) {
+            console.log(err)
+            result = dbResultCode.Fail;
             cb(result);
-
-            connection.release();
-        });
+        }
+        else {
+            connection.query(sql, p, function (err, rows) {
+                if (!err) {
+                    console.log('user2 insert');
+                    //res.redirect('http://localhost:5001/exercise/list');
+                    result = dbResultCode.OK;
+                }
+                else {
+                    console.log(err)
+                    result = dbResultCode.Fail;
+                }
+                cb(result); 
+                connection.release();
+            });
+        }
     });
 
 };
@@ -34,21 +40,25 @@ adapter.search = function(user2Id,cols,cb){
     var parameter = [user2Id];
 
     pool.getConnection(function(err, connection) {
-        connection.query(s,parameter,function(err, rows) {
-                if(!err){
-                    if(rows.length==1){
-                        result = resultCode.OK;
-                        console.log('result:'+result);;
-                    }
+        if (err) { 
+            console.log(err)
+            result = dbResultCode.Fail;
+            cb(result, []);
+        }
+        else {
+            connection.query(s, parameter, function (err, rows) {
+                if (!err) {
+                    result = dbResultCode.OK;
+                    cb(result, rows);
                 }
-                else{
-                    console.log('Error while performing Query:', err)
-                    console.log('result:'+result);;
-                    result = resultCode.Fail;
+                else {
+                    console.log(err)
+                    result = dbResultCode.Fail;
+                    cb(result, []);
                 }
-            cb(result,rows);
-            connection.release();
-        });
+                connection.release();
+            });
+        }
     });
 }
 

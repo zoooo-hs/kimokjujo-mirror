@@ -16,12 +16,14 @@ adapter.write = function(user1, cb) {
 
     pool.getConnection(function(err, conn) {
         if (err) {
+            console.log(err)
             resultCode = dbResultCode.Fail;
             conn.release();
             cb(resultCode);
         } else {
             conn.query(writeQuery, [user1.id, user1.password, user1.address, user1.contact, user1.financialInfo, user1.companyName, user1.companyLicense], function(err) {
                 if (err) {
+                    console.log(err)
                     resultCode = dbResultCode.Fail;
                     conn.release();
                     cb(resultCode); 
@@ -42,12 +44,14 @@ adapter.search = function(user1Id, cols, cb) {
 
     pool.getConnection(function(err, conn) {
         if (err) {
+            console.log(err)
             resultCode = dbResultCode.Fail;
             conn.release();
             cb(resultCode, [])
         } else {
             conn.query(searchQuery, [user1Id], function(err, rows) {
                 if (err) {
+                    console.log(err)
                     resultCode = dbResultCode.Fail;
                     conn.release();
                     cb(resultCode, [])

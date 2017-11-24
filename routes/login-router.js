@@ -1,6 +1,7 @@
 var router = require('express').Router();
 var user1adapter = require('../adapters/user1db-adapter');
 var user2adapter = require('../adapters/user2db-adapter');
+const dbResultCode = require('../status-codes/db-result');
 var id;
 var password;
 var userType;
@@ -24,52 +25,56 @@ router.route('/').post(function(req,res){
     password = req.body.password;
     userType = req.body.userType;
 
-    console.log('id:'+req.body.id+'password:'+req.body.password);
-    if(userType ==1){
+    if(userType==1){
         user1adapter.search(id,[],function(resultCode,rows){
-            if(resultCode==user1adapter.resultCode.OK){
+            if(resultCode==dbResultCode.OK){
                 if(rows.length>0){
                     if(rows[0].password == req.body.password){
                         session.push({sessionkey:'12345',type:userType,id:id});//회원 세션, id와 usertype 1인지 2인지 저장, 세션 키 저장
-                        res.json({success:true,sessionkey:'12345'});
+                        res.json({"success":true,sessionkey:'12345'});
                     }
                     else {
-                        res.json({success:false});
+                        console.log("false reason: wrong pw");
+                        res.json({"success":false});
                     }
                 }
                 else {
-                    res.json({success:false});
+                    console.log("false reason: wrong id");
+                    res.json({"success":false});
                 }
             }
             else {
-                res.json({success: false})
+                console.log("false reason: query false");
+                res.json({"success": false})
             }
             });
     }
     
-    if(userType==2){
+    else if(userType==2) {
         user2adapter.search(id,[],function (resultCode,rows) {
-            if(resultCode==user2adapter.resultCode.OK) {
+            console.log("resultCode:"+resultCode);
+            if(resultCode==dbResultCode.OK) {
                 if (rows.length > 0) {
                     if(rows[0].password == req.body.password) {
                         session.push({sessionkey: '34567', type: userType, id: id});
-                        res.json({success: true, sessionkey: '34567'});
+                        return res.json({"success": true, "sessionkey": '34567'});
                     }
                     else {
-                        res.json({success:false});
+                        console.log("false reason: wrong pw");
+                        res.json({"success":false});
                     }
                 }
                 else {
-                    res.json({sucess: false});
+                    console.log("false reason: wrong id");
+                    res.json({"sucess": false});
                 }
             }
             else {
-                res.json({sucess:false});
+                console.log("false reason: query false");
+                res.json({"sucess":false});
             }
         });
     }
-
-
-})
+});
 
 module.exports = router;
