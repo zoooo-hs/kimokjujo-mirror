@@ -8,6 +8,12 @@ adapter.resultCode ={
 }
 
 adapter.write = function(user2, cb){
+    //  this.id = id;
+   // this.password = password;
+    //this.address = address;
+    //this.contact = contact;
+    //this.financialInfo = financialInfo;
+    //this.name = name;
     //CREATE user2에 대한 instance생성 -> callback
     var result = this.resultCode.OK;
     cb(result);
