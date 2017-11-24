@@ -1,13 +1,10 @@
 const User2 = require('../models/user2.js');
 const User2data = require('../mockup/user2-mockup');
 const pool = require('./mysql-pool');
+const dbResultCode = require('../status-codes/db-result'); 
 
 var adapter = {};
-var resultCode ={
-    "OK":1,
-    "Fail":2
-}
-var result;
+
 adapter.write = function(user2, cb){
     var p = [user2.id,user2.password,user2.address,user2.contact,user2.financialInfo,user2.name];
     var sql = "INSERT INTO user2 (id, password,address,contact,financialInfo,name) VALUES (?,?,?,?,?,?)";
