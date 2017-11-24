@@ -10,5 +10,10 @@ select engineMovieId from kimokjujo_service.enginemovieactor where actorId= 'act
 select * from kimokjujo_service.enginemovieactor where engineMovieId ='movie511';
 select * from kimokjujo_service.enginemovieactor;
 
+/* auto incremet refresh */
+ALTER TABLE test_table AUTO_INCREMENT=1
+
+/* table delete all data */
+truncate test_table
 
 SELECT sum(audience) FROM kimokjujo_service.enginemoviedata e,( select engineMovieId from kimokjujo_service.enginemovieactor where actorId='actor1' ) a WHERE e.id=a.engineMovieId order by date desc limit 2;

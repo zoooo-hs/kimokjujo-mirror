@@ -3,11 +3,11 @@ var fs = require('fs');
 
 var pool = mysql.createPool({
     connectionLimit: 10,
-    host: 'localhost',
+    host: '210.107.197.176',
     port: '3306',
-    user: 'root',
-    password: '1234',
-    database: 'kimokjujo_schema',
+    user: 'heeeee',
+    password: '12345678!',
+    database: 'kimokjujo_service',
     debug: false
 });
 

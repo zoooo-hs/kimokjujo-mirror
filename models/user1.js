@@ -3,6 +3,7 @@ class User1 {
         this.id = id;
         this.password = password;
         this.address = address;
+        this.contact = contact;
         this.finalcialInfo = finalcialInfo;
         this.companyName = companyName;
         this.companyLicense = companyLicense;
