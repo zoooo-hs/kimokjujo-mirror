@@ -1,15 +1,19 @@
 var router = require('express').Router();
-router.route('/').get(function (req,res) {
-        //res.render('plan-movie.html');
-        res.write("<html>");
-        res.write("  <head>");
-        res.write("    <title>movie plan</title>");
-        res.write("    </head>");
-        res.write("   <body>");
-        res.write("    plan input ");
-        res.write("    </body>");
-        res.write(     "</html>");
-        res.end();
+var sessionAdapter = require('../adapters/sessiondb-adapter');
+
+router.route('/').get(function (req, res, next) {
+
+        var sessionKey = req.cookies.sessionkey;
+
+        sessionAdapter.typeCheck(sessionKey, function (userType) {
+           if (userType == 1) {
+               res.write("user1 newplan");
+               res.end();
+           }
+           else {
+               next();
+           }
+        });
     }
 );
 
@@ -18,6 +22,7 @@ router.route('/').post(function(req,res){
     req.body.title
     req.body['3words']
     req.body.original
+    req.body.originalVisible
     req.body.budget
     req.body.releasseMonth
     req.body.contentRate

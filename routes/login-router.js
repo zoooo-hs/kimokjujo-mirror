@@ -1,7 +1,12 @@
 var router = require('express').Router();
-var user1adapter = require('../adapters/user1db-adapter');
-var user2adapter = require('../adapters/user2db-adapter');
+var user1Adapter = require('../adapters/user1db-adapter');
+var user2Adapter = require('../adapters/user2db-adapter');
+var sessionAdapter = require('../adapters/sessiondb-adapter');
 const dbResultCode = require('../status-codes/db-result');
+const Session = require('../models/session');
+
+var uniqid = require('uniqid');
+
 var id;
 var password;
 var userType;
@@ -26,12 +31,19 @@ router.route('/').post(function(req,res){
     userType = req.body.userType;
 
     if(userType==1){
-        user1adapter.search(id,[],function(resultCode,rows){
+        user1Adapter.search(id,[],function(resultCode,rows){
             if(resultCode==dbResultCode.OK){
                 if(rows.length>0){
                     if(rows[0].password == req.body.password){
-                        session.push({sessionkey:'12345',type:userType,id:id});//회원 세션, id와 usertype 1인지 2인지 저장, 세션 키 저장
-                        res.json({"success":true,sessionkey:'12345'});
+                        var session = new Session(uniqid(), userType, id);
+                        sessionAdapter.write(session, function (resultCode, rows) {
+                            if (resultCode == dbResultCode.OK) {
+                                res.json({"success":true, sessionkey:session.sessionKey});
+                            }
+                            else {
+                                res.json({"success": false});
+                            }
+                        });
                     }
                     else {
                         console.log("false reason: wrong pw");
@@ -51,13 +63,20 @@ router.route('/').post(function(req,res){
     }
     
     else if(userType==2) {
-        user2adapter.search(id,[],function (resultCode,rows) {
+        user2Adapter.search(id,[],function (resultCode,rows) {
             console.log("resultCode:"+resultCode);
             if(resultCode==dbResultCode.OK) {
                 if (rows.length > 0) {
                     if(rows[0].password == req.body.password) {
-                        session.push({sessionkey: '34567', type: userType, id: id});
-                        return res.json({"success": true, "sessionkey": '34567'});
+                        var session = new Session(uniqid(), userType, id);
+                        sessionAdapter.write(session, function (resultCode, rows) {
+                            if (resultCode == dbResultCode.OK) {
+                                res.json({"success":true, sessionkey:session.sessionKey});
+                            }
+                            else {
+                                res.json({"success": false});
+                            }
+                        });
                     }
                     else {
                         console.log("false reason: wrong pw");

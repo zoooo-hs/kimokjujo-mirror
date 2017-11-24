@@ -6,7 +6,7 @@ var pool = require('./mysql-pool');
 var adapter = {};
 
 var writeQuery = 'insert into user1 (id, password, address, contact, financialInfo, companyName, companyLicense) values(?,?,?,?,?,?,?);';
-var searchQuery = 'select * from user1 where id=?;'
+var searchQuery = 'select * from user1 where id=?;';
 
 adapter.write = function(user1, cb) {
 
