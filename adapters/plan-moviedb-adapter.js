@@ -33,4 +33,36 @@ adapter.write = function(planMovie, cb) {
     });
 };
 
+adapter.search = function(planMovieId, cb) {
+
+    var parameter = [planMovieId]
+    var searchQuery = 'SELECT * from planmovie where planmovie.id = ? ';
+
+    var resultCode = dbResultCode.Fail;
+
+    pool.getConnection(function(err, conn) {
+        if (err) {
+            console.log(err);
+            resultCode = dbResultCode.Fail;
+            conn.release();
+            cb(resultCode,[]);
+        } else {
+            conn.query(searchQuery, parameter, function(err,rows) {
+                if (err) {
+                    console.log(err);
+                    resultCode = dbResultCode.Fail;
+                    conn.release();
+                    cb(resultCode,[]);
+                } else {
+                    resultCode = dbResultCode.OK;
+                    conn.release();
+                    cb(resultCode,rows);
+                }
+            });
+        }
+    });
+};
+
+
+
 module.exports = adapter;
