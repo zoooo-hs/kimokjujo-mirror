@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"> </script>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+
+    <h2>Login</h2>
+    <form id="login-form">
+            <input type="text" placeholder="ID" name="id" required><br>
+            <input type="password" placeholder="Password" name="password" required><br>
+            <input type="radio" name="userType" value="1" checked="checked">투자자
+            <input type="radio" name="userType" value="2">제작자<br/>
+    </form>
+    <button id="login-submit" >Go</button><br>
+    <span class="psw">Don't have an account? <a href="/signup">Sign up</a></span><br>
+    <script src="/js/login.js"></script>
+
+
+</body>
+</html>

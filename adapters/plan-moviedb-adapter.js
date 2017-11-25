@@ -48,6 +48,7 @@ adapter.search = function(planMovieId, cols, cb) {
         }
         else {
             conn.query(sql, p , function(err, rows) {
+
                 if (err) {
                     console.log(err);
                     resultCode = dbResultCode.Fail;
@@ -58,13 +59,11 @@ adapter.search = function(planMovieId, cols, cb) {
                     resultCode = dbResultCode.OK;
                     conn.release();
                     cb(resultCode, rows);
+
                 }
             });
         }
     });
 };
-
-
-
 
 module.exports = adapter;
