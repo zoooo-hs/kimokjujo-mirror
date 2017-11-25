@@ -1,7 +1,7 @@
-var planMovieActorAdapter = require('../adapters/plan-movie-actordb-adapter');
+var planMovieUserAdapter = require('../adapters/plan-movie-userdb-adapter');
 const dbResultCode = require('../status-codes/db-result');
 
-planMovieActorAdapter.searchByPlanMovieId('hell', [], function(resultCode, rows){
+planMovieUserAdapter.searchByUserId('heeeee1123', [], function(resultCode, rows){
     if (resultCode == dbResultCode.OK) {
         for (var i in rows) {
             console.log('Count (i) : ' + JSON.stringify(rows[i]))
