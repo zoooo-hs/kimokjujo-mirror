@@ -17,7 +17,7 @@ adapter.write = function(planMovie, cb) {
             conn.release();
             cb(resultCode);
         } else {
-            conn.query(writeQuery, parameter, function(err) {
+            conn.query(writeQuery, parameter, function(err, result) {
                 if (err) {
                     console.log(err);
                     resultCode = dbResultCode.Fail;
@@ -26,7 +26,7 @@ adapter.write = function(planMovie, cb) {
                 } else {
                     resultCode = dbResultCode.OK;
                     conn.release();
-                    cb(resultCode);
+                    cb(resultCode, result.insertId);
                 }
             });
         }
