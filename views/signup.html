@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"> </script>
+    <meta charset="UTF-8">
+    <title>Signup</title>
+    <link rel="stylesheet" href="/css/signup-style.css">
+</head>
+<body>
+
+<h2>Sign up</h2>
+<div id="user-signup-form">
+    <div class="signup-container">
+        <button id="userType-1">투자자</button>
+        <button id="userType-2">피투자자</button><br>
+        <span class="already">I'm already a user <a href="/login">log in</a></span><br>
+    </div> 
+</div>
+<form id="user1-form" class="user-form" action="">
+    <label>ID</label>
+    <input id="inputId1" type="text" placeholder="ID" name="id" maxlength="16" required="required">
+    <button id="id-duplicated1" type="button">중복체크</button>
+    <br>
+    <label>비밀번호</label>
+    <input id="inputPassword1" type="password" placeholder="Password" name="password" maxlength="16" required="required">
+    <br>
+    <label>회사명</label>
+    <input type="text" placeholder="Company Name" name="companyName" maxlength="40" required="required">
+    <br>
+    <label>사업자 등록번호</label>
+    <input type="text" placeholder="Company License" name="companyLicense" maxlength="40" required="required">
+    <br>
+    <label>전화번호</label>
+    <input type="tel" placeholder="Contact" name="contact" maxlength="20" required="required">
+    <br>
+    <label>e-mail 주소</label>
+    <input type="email" placeholder="Address" name="address" maxlength="40" required="required">
+    <br>
+    <input type="hidden" name="userType" value="1" required="required">
+    <br>
+    <input id="signup-submit" type="submit" value="submit">
+</form>
+
+<form id="user2-form" class="user-form"> 
+    <label>ID</label>
+    <input id="inputId2" type="text" placeholder="ID" name="id" maxlength="16" required="required">
+    <button id="id-duplicated2" type="button">중복체크</button>
+    <br>
+    <label>비밀번호</label>
+    <input id="inputPassword2" type="password" placeholder="Password" name="password" maxlength="16" required="required">
+    <br>
+    <label>이름</label>
+    <input type="text" placeholder="Name" name="name" maxlength="40" required="required">
+    <br>
+    <label>전화번호</label>
+    <input type="tel" placeholder="Contact" name="contact" maxlength="20" required="required">
+    <br>
+    <label>e-mail 주소</label>
+    <input type="email" placeholder="Address" name="address" maxlength="40" required="required">
+    <br>
+    <input type="hidden" name="userType" value="2" required="required">
+    <br>
+    <input id="signup-submit" type="submit" value="submit">
+</form>
+
+<script src = "/js/signup.js"></script>
+</body>
+</html>

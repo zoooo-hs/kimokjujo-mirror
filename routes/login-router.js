@@ -2,6 +2,7 @@ var router = require('express').Router();
 var user1Adapter = require('../adapters/user1db-adapter');
 var user2Adapter = require('../adapters/user2db-adapter');
 var sessionAdapter = require('../adapters/sessiondb-adapter');
+var sendHTML = require('../adapters/send-html').sendHTML;
 const dbResultCode = require('../status-codes/db-result');
 const Session = require('../models/session');
 
@@ -12,19 +13,9 @@ var password;
 var userType;
 var session = []; //user의 session 한번에 저장 user1,user2의 구분 없음
 
-router.route('/').get(function (req,res) {
-    //res.render('login.html');
-    res.write("<html>");
-    res.write("  <head>");
-    res.write("    <title>login</title>");
-    res.write("    </head>");
-    res.write("   <body>");
-    res.write("    hi ");
-    res.write("    </body>");
-    res.write(     "</html>");
-    res.end();
-    }
-);
+router.route('/').get(function (req, res, next) {
+    sendHTML('login', res, next);
+});
 router.route('/').post(function(req,res){
     id = req.body.id;
     password = req.body.password;
