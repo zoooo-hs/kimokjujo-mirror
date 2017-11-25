@@ -3,10 +3,10 @@ var pool = require('./mysql-pool');
 
 var adapter = {};
 
-adapter.write = function(planMovie, cb) {
+adapter.write = function(resultMovie, cb) {
 
-    var parameter = [planMovie.title, planMovie.original, planMovie.originalVisible, planMovie.budget, planMovie._3words, planMovie.releaseMonth, planMovie.genre, planMovie.contentRate, planMovie.directorId, planMovie.makerId];
-    var writeQuery = 'insert into planmovie (title, original, originalVisible, budget, _3words, releaseMonth, genre, contentRate, directorId, makerId) values(?,?,?,?,?,?,?,?,?,?);';
+    var parameter = [resultMovie.planMovieId, resultMovie.date, resultMovie.scenario, resultMovie.audience, resultMovie.breakEvenPoint, resultMovie.contract];
+    var sql = 'insert into resultmovie (planMovieId, date, scenario, audience, breakEvenPoint, contract) values(?,?,?,?,?,?) ';
 
     var resultCode = dbResultCode.Fail;
 
@@ -17,7 +17,7 @@ adapter.write = function(planMovie, cb) {
             conn.release();
             cb(resultCode);
         } else {
-            conn.query(writeQuery, parameter, function(err) {
+            conn.query(sql, parameter, function(err) {
                 if (err) {
                     console.log(err);
                     resultCode = dbResultCode.Fail;
@@ -33,15 +33,16 @@ adapter.write = function(planMovie, cb) {
     });
 };
 
-adapter.search = function(planMovieId, cols, cb) {
+adapter.searchByPlanMovieId = function(planMovieId, cols, cb) {
 
     var resultCode = dbResultCode.Fail;
     var p = [planMovieId];
-    var sql = "SELECT * FROM planmovie WHERE planmovie.id=? ";
+    var sql = "SELECT * FROM resultmovie WHERE resultmovie.planMovieId=? ";
 
     pool.getConnection(function(err, conn) {
         if (err) {
             console.log(err);
+            console.log("first");
             resultCode = dbResultCode.Fail;
             conn.release();
             cb(resultCode, []);
@@ -50,6 +51,7 @@ adapter.search = function(planMovieId, cols, cb) {
             conn.query(sql, p , function(err, rows) {
                 if (err) {
                     console.log(err);
+                    console.log("second");
                     resultCode = dbResultCode.Fail;
                     conn.release();
                     cb(resultCode, []);

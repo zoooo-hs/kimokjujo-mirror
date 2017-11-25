@@ -1,14 +1,13 @@
 const dbResultCode = require('../status-codes/db-result');
-var pool = require('./mysql-pool');
+const pool = require('./mysql-pool');
 
 var adapter = {};
 
-adapter.write = function(planMovie, cb) {
-
-    var parameter = [planMovie.title, planMovie.original, planMovie.originalVisible, planMovie.budget, planMovie._3words, planMovie.releaseMonth, planMovie.genre, planMovie.contentRate, planMovie.directorId, planMovie.makerId];
-    var writeQuery = 'insert into planmovie (title, original, originalVisible, budget, _3words, releaseMonth, genre, contentRate, directorId, makerId) values(?,?,?,?,?,?,?,?,?,?);';
+adapter.write = function(maker, cb) {
 
     var resultCode = dbResultCode.Fail;
+    var p = [maker.id,maker.name];
+    var sql = "INSERT INTO maker (id, name) VALUES (?,?)";
 
     pool.getConnection(function(err, conn) {
         if (err) {
@@ -16,14 +15,16 @@ adapter.write = function(planMovie, cb) {
             resultCode = dbResultCode.Fail;
             conn.release();
             cb(resultCode);
-        } else {
-            conn.query(writeQuery, parameter, function(err) {
+        }
+        else {
+            conn.query(sql, p, function(err) {
                 if (err) {
                     console.log(err);
                     resultCode = dbResultCode.Fail;
                     conn.release();
                     cb(resultCode);
-                } else {
+                }
+                else {
                     resultCode = dbResultCode.OK;
                     conn.release();
                     cb(resultCode);
@@ -33,11 +34,11 @@ adapter.write = function(planMovie, cb) {
     });
 };
 
-adapter.search = function(planMovieId, cols, cb) {
+adapter.search = function(makerId, cols, cb) {
 
     var resultCode = dbResultCode.Fail;
-    var p = [planMovieId];
-    var sql = "SELECT * FROM planmovie WHERE planmovie.id=? ";
+    var p = [makerId];
+    var sql = "SELECT * FROM maker WHERE maker.id=? ";
 
     pool.getConnection(function(err, conn) {
         if (err) {
@@ -63,8 +64,6 @@ adapter.search = function(planMovieId, cols, cb) {
         }
     });
 };
-
-
 
 
 module.exports = adapter;
