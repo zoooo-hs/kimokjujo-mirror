@@ -14,7 +14,7 @@ adapter.searchByMovieId = function (engineMovieId, cols, cb) {
     pool.getConnection(function(err, conn) {
         if (err) {
             resultCode = dbResultCode.Fail;
-            console.log(err)
+            console.log(err);
             conn.release();
             cb(resultCode, []);
         }
@@ -22,7 +22,7 @@ adapter.searchByMovieId = function (engineMovieId, cols, cb) {
             conn.query(query, parameter, function(err, rows) {
                 if (err) {
                     resultCode = dbResultCode.Fail;
-                    console.log(err)
+                    console.log(err);
                     conn.release();
                     cb(resultCode, []);
                 }
@@ -34,19 +34,19 @@ adapter.searchByMovieId = function (engineMovieId, cols, cb) {
             });
         }
     });
-}
+};
 
-adapter.write = function (engineMovie, cb) {
+adapter.write = function (engineMovieActor, cb) {
 
     var resultCode;
 
     var query = 'insert into enginemovieactor (engineMovieId, actorId) values (?, ?)';
-    var parameter = [engineMovie.engineMovieId, engineMovie.actorId];
+    var parameter = [engineMovieActor.engineMovieId, engineMovieActor.actorId];
 
     pool.getConnection(function (err, conn) {
         if (err) {
             resultCode = dbResultCode.Fail;
-            console.log(err)
+            console.log(err);
             conn.release();
             cb(resultCode);
         }
@@ -54,7 +54,7 @@ adapter.write = function (engineMovie, cb) {
             conn.query(query, parameter, function(err) {
                 if (err) {
                     resultCode = dbResultCode.Fail;
-                    console.log(err)
+                    console.log(err);
                     conn.release();
                     cb(resultCode);
                 }
@@ -66,7 +66,7 @@ adapter.write = function (engineMovie, cb) {
             });
         }
     });
-}
+};
 
 
 module.exports = adapter;

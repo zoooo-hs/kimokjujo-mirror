@@ -1,14 +1,13 @@
 const dbResultCode = require('../status-codes/db-result');
-var pool = require('./mysql-pool');
+const pool = require('./mysql-pool');
 
 var adapter = {};
 
-adapter.write = function(planMovie, cb) {
-
-    var parameter = [planMovie.title, planMovie.original, planMovie.originalVisible, planMovie.budget, planMovie._3words, planMovie.releaseMonth, planMovie.genre, planMovie.contentRate, planMovie.directorId, planMovie.makerId];
-    var writeQuery = 'insert into planmovie (title, original, originalVisible, budget, _3words, releaseMonth, genre, contentRate, directorId, makerId) values(?,?,?,?,?,?,?,?,?,?);';
+adapter.write = function(director, cb) {
 
     var resultCode = dbResultCode.Fail;
+    var p = [director.id,director.name];
+    var sql = "INSERT INTO director (id, name) VALUES (?,?)";
 
     pool.getConnection(function(err, conn) {
         if (err) {
@@ -16,14 +15,16 @@ adapter.write = function(planMovie, cb) {
             resultCode = dbResultCode.Fail;
             conn.release();
             cb(resultCode);
-        } else {
-            conn.query(writeQuery, parameter, function(err) {
+        }
+        else {
+            conn.query(sql, p, function(err) {
                 if (err) {
                     console.log(err);
                     resultCode = dbResultCode.Fail;
                     conn.release();
                     cb(resultCode);
-                } else {
+                }
+                else {
                     resultCode = dbResultCode.OK;
                     conn.release();
                     cb(resultCode);
@@ -33,11 +34,11 @@ adapter.write = function(planMovie, cb) {
     });
 };
 
-adapter.search = function(planMovieId, cols, cb) {
+adapter.search = function(directorId, cols, cb) {
 
     var resultCode = dbResultCode.Fail;
-    var p = [planMovieId];
-    var sql = "SELECT * FROM planmovie WHERE planmovie.id=? ";
+    var p = [directorId];
+    var sql = "SELECT * FROM director WHERE director.id=? ";
 
     pool.getConnection(function(err, conn) {
         if (err) {
@@ -48,7 +49,6 @@ adapter.search = function(planMovieId, cols, cb) {
         }
         else {
             conn.query(sql, p , function(err, rows) {
-
                 if (err) {
                     console.log(err);
                     resultCode = dbResultCode.Fail;
@@ -59,11 +59,11 @@ adapter.search = function(planMovieId, cols, cb) {
                     resultCode = dbResultCode.OK;
                     conn.release();
                     cb(resultCode, rows);
-
                 }
             });
         }
     });
 };
+
 
 module.exports = adapter;
