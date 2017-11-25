@@ -50,7 +50,7 @@ adapter.write = function (planMovieUser, cb) {
             cb(resultCode);
         }
         else {
-            conn.query(query, parameter, function(err) {
+            conn.query(query, parameter, function(err, ret) {
                 if (err) {
                     resultCode = dbResultCode.Fail;
                     console.log(err);
@@ -60,7 +60,7 @@ adapter.write = function (planMovieUser, cb) {
                 else {
                     resultCode = dbResultCode.OK;
                     conn.release();
-                    cb(resultCode);
+                    cb(resultCode, ret);
                 }
             });
         }

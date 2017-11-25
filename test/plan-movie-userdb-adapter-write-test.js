@@ -3,9 +3,9 @@ const PlanMovieUser = require('../models/plan-movie-user');
 const dbResultCode = require('../status-codes/db-result');
 var planmovieuser = new PlanMovieUser(1,3,'heeeee123');
 
-planMovieUserAdapter.write(planmovieuser, function(resultCode){
+planMovieUserAdapter.write(planmovieuser, function(resultCode, ret){
     if (resultCode == dbResultCode.OK) {
-        console.log('write success');
+        console.log('write success'+JSON.stringify(ret));
         process.exit(0)
     }
     else {
