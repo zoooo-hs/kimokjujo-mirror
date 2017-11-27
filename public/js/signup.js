@@ -26,13 +26,13 @@ function validation(userType) {
     regex = /^[A-Za-z0-9+]{4,16}$/;
 
     if (!regex.test(val)) {
-        msg += "ID: 4자리 이상 16자리 이하, 영문, 숫자, 특수문자만 가능";
+        msg += "ID: 4자리 이상 16자리 이하, 영문, 숫자만 가능";
         err = true;
     }
     val = $("#inputPassword"+userType).val();
     regex = /^[a-z0-9\W+]{4,16}$/;
     if (!regex.test(val)) {
-        msg += "\nPASSWORD: 4자리 이상 16자리 이하, 영문과 숫자만 가능";
+        msg += "\nPASSWORD: 4자리 이상 16자리 이하, 영문과 숫자 특수문자만 가능";
         err = true;
     }
 
