@@ -72,7 +72,7 @@ adapter.write = function (session, cb) {
 
 adapter.search = function(sessionKey, cols, cb) {
     var resultCode;
-    var query = 'SELECT * FROM sessionkeys where sessionkeys.sessionKey = ?';
+    var query = 'SELECT * FROM session where session.sessionKey = ?';
     var parameter = [sessionKey];
 
     pool.getConnection(function (err,conn) {

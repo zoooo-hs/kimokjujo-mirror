@@ -10,19 +10,18 @@ var planMovieUserAdapter = require('../adapters/plan-movie-userdb-adapter');
 
 router.route('/').get(function (req, res, next) {
 
-        var sessionKey = req.cookies.sessionkey;
+    var sessionKey = req.cookies.sessionkey;
 
-        sessionAdapter.typeCheck(sessionKey, function (userType) {
-            if (userType == 1) {
-                res.write("user1 newplan");
-                res.end();
-            }
-            else {
-                next();
-            }
-        });
-    }
-);
+    sessionAdapter.typeCheck(sessionKey, function (userType) {
+        if (userType == 1) {
+            res.write("user1 newplan");
+            res.end();
+        }
+        else {
+            next();
+        }
+    });
+});
 
 router.route('/').post(function(req, res, next){
     var sessionKey = req.cookies.sessionkey;
