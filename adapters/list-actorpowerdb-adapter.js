@@ -3,13 +3,12 @@ const dbResultCode = require('../status-codes/db-result');
 
 var adapter = {};
 
-adapter.getList = function(actorPower , cb){
-    var largeSql = 'SELECT * from monthlypower where monthlypower.power >= ? order by power desc limit 3';
-    var smallSql = 'SELECT * from monthlypower where monthlypower.power < ? order by power limit 3';
-    var parameter = [actorPower];
-    var resultCode = dbResultCode.Fail;
+adapter.getList = function(actorIds , cb){
+    var query = '(select mp.power, mp.actorId from monthlypower mp, (SELECT * from monthlypower where monthlypower.actorId = ?) ap where ap.power > mp.power order by mp.power desc limit 3) union (select mp.power, mp.actorId from monthlypower mp, (SELECT * from monthlypower where monthlypower.actorId = ?) ap where ap.power < mp.power order by mp.power limit 3) order by power desc;' 
+    var parameter = [];
 
-    var result;
+    var resultCode = dbResultCode.Fail; 
+    var result; 
 
     pool.getConnection(function(err, conn) {
         if (err) {
@@ -19,7 +18,8 @@ adapter.getList = function(actorPower , cb){
             cb(resultCode, []);
         }
         else {
-            conn.query(largeSql, parameter, function (err, rows) {
+            parameter = [actorIds[0], actorIds[0]]
+            conn.query(query, parameter, function (err, rows) {
                 if (err) {
                     console.log(err);
                     resultCode = dbResultCode.Fail;
@@ -27,9 +27,10 @@ adapter.getList = function(actorPower , cb){
                     cb(resultCode, []);
                 }
                 else {
+                    parameter = [actorIds[1], actorIds[1]]
                     resultCode = dbResultCode.OK;
-                    result= rows;
-                    conn.query(smallSql,parameter, function(err, rows){
+                    result = rows;
+                    conn.query(query, parameter, function(err, rows){
                         if(err){
                             console.log(err);
                             resultCode = dbResultCode.Fail;
@@ -46,9 +47,7 @@ adapter.getList = function(actorPower , cb){
                 }
             });
         }
-    });
-
-
+    }); 
 };
 
 module.exports = adapter;

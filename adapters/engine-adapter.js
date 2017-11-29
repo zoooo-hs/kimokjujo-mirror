@@ -1,26 +1,13 @@
-var engine//= require('') ;
-
 var adapter = {};
 
-adapter.runEngine = function (planMovieId, actor1Id, actor2Id, next) {
+adapter.runEngine = function (planMovieId, actor1Id, actor2Id, cb) {
 
-    var data = {
-        planMovieId :planMovieId,
-        actor1Id : actor1Id,
-        actor2Id : actor2Id
-    };
+    var regression = 10000;
+    var naive = 0;
 
-    /*engine.~~(data,function(err{
-        if(err){
-            console.log(err);
-            next();
-        }
-        else{
-            console.log('complete');
-        }
-    });
-*/
+    var err = 0;
 
+    cb(err, [regression, naive]);
 };
 
 module.exports = adapter;

@@ -31,6 +31,7 @@ router.route('/').post(function(req,res){
                             if (resultCode == dbResultCode.OK) {
                                 res.cookie('sessionkey', session.sessionKey)
                                 res.cookie('userId', session.userId)
+                                res.cookie('userType', session.userType)
                                 res.json({"success":true});
                             }
                             else {
@@ -64,6 +65,9 @@ router.route('/').post(function(req,res){
                         var session = new Session(uniqid(), userType, id);
                         sessionAdapter.write(session, function (resultCode, rows) {
                             if (resultCode == dbResultCode.OK) {
+                                res.cookie('sessionkey', session.sessionKey)
+                                res.cookie('userId', session.userId)
+                                res.cookie('userType', session.userType)
                                 res.json({"success":true, sessionkey:session.sessionKey});
                             }
                             else {

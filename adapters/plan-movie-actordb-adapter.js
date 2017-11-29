@@ -66,6 +66,57 @@ adapter.write = function (planMovieActor, cb) {
             });
         }
     });
-}
+};
+
+adapter.writeActors = function(planMovieActors, cb) { 
+
+    var resultCode;
+
+    var query = 'insert into planmovieactor (planMovieId, actorId) values (?, ?)';
+    var parameter = [];
+
+    pool.getConnection(function (err, conn) {
+        if (err) {
+            resultCode = dbResultCode.Fail;
+            console.log(err)
+            conn.release();
+            cb(resultCode);
+        }
+        else {
+            parameter = [planMovieActors[0].planMovieId, planMovieActors[0].actorId];
+            conn.query(query, parameter, function(err) {
+                if (err) {
+                    resultCode = dbResultCode.Fail;
+                    console.log(err)
+                    conn.release();
+                    cb(resultCode);
+                }
+                else { 
+                    if (planMovieActors.length == 1) {
+                        resultCode = dbResultCode.OK;
+                        conn.release();
+                        cb(resultCode); 
+                    }
+                    else {
+                        parameter = [planMovieActors[1].planMovieId, planMovieActors[1].actorId];
+                        conn.query(query, parameter, function (err) {
+                            if (err) {
+                                resultCode = dbResultCode.Fail;
+                                console.log(err)
+                                conn.release();
+                                cb(resultCode);
+                            }
+                            else {
+                                resultCode = dbResultCode.OK;
+                                conn.release();
+                                cb(resultCode);
+                            }
+                        });
+                    }
+                } 
+            });
+        }
+    });
+};
 
 module.exports = adapter;
