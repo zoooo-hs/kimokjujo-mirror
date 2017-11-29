@@ -6,7 +6,7 @@ var adapter = {};
 adapter.typeCheck = function(sessionKey,cb){
 
     var resultCode;
-    var query = 'SELECT * FROM sessionkeys where sessionkeys.sessionKey = ?';
+    var query = 'SELECT * FROM session where session.sessionKey = ?';
     var parameter = [sessionKey];
 
     pool.getConnection(function (err,conn) {

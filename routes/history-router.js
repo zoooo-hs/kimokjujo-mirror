@@ -11,10 +11,11 @@ router.get('/', function(req, res, next) {
 
     console.log(req.cookies)
 
-    // var sessionKey = req.cookies.sessionkey;
-    var sessionKey = 'hello';
+    var sessionKey = req.cookies.sessionkey;
+    // var sessionKey = 'hello';
 
     sessionAdapter.search(sessionKey, null, function (resultCode, rows) {
+
         
         if (resultCode == dbResultCode.OK) {
             if (rows.length != 0) {
@@ -25,24 +26,17 @@ router.get('/', function(req, res, next) {
 
                 planMovieAdapter.searchByUserId(userId, null, function(resultCode, rows) {
                     if (resultCode == dbResultCode.OK) {
-                        if (rows.length != 0) {
-                            for (var i in rows) {
-                                console.log(rows[i])
-                                var row = rows[i];
-                                var planMovie = {};
-                                var actors;
-                                actors = row.actorIds.split(',');
-                                planMovie = row;
-                                delete row.actorIds;
+                        for (var i in rows) {
+                            var row = rows[i];
+                            var planMovie = {};
+                            actors = row.actorIds.split(',');
+                            planMovie = row;
+                            delete row.actorIds;
 
-                                result.push({'planMovie': planMovie, 'actors': actors});
+                            result.push({ 'planMovie': planMovie, 'actors': actors });
 
-                            }
-                            res.json({planMovies: result}); 
-                        } 
-                        else { 
-                            next();
                         }
+                        res.json({ planMovies: result }); 
                     }
                     else {
                         next();
@@ -60,7 +54,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/:planMovieId', function(req, res, next) {
-
+    
 });
 
 module.exports = router;

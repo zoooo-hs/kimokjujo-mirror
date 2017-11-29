@@ -29,7 +29,9 @@ router.route('/').post(function(req,res){
                         var session = new Session(uniqid(), userType, id);
                         sessionAdapter.write(session, function (resultCode, rows) {
                             if (resultCode == dbResultCode.OK) {
-                                res.json({"success":true, sessionkey:session.sessionKey});
+                                res.cookie('sessionkey', session.sessionKey)
+                                res.cookie('userId', session.userId)
+                                res.json({"success":true});
                             }
                             else {
                                 res.json({"success": false});
