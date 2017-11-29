@@ -8,6 +8,7 @@ var planMovieAdapter = require('../adapters/plan-moviedb-adapter');
 var planMovieActorAdapter = require('../adapters/plan-movie-actordb-adapter');
 var planMovieUserAdapter = require('../adapters/plan-movie-userdb-adapter');
 var monthlyPowerAdapter = require('../adapters/monthly-powerdb-adapter');
+var engineAdapter = require('../adapters/engine-adapter');
 
 router.route('/').get(function (req, res, next) {
 
@@ -44,7 +45,7 @@ router.route('/').post(function(req, res, next){
             planMovieAdapter.write(planMovie, function(resultCode, planMovieId){
                 if(resultCode == dbResultCode.OK){
                     var planMovieActor1 = new PlanMovieActor(1, planMovieId, req.body.actor1Id);
-                    var planMovieActor2 = new PlanMovieActor(1, planMovieId, req.body.adtor2Id);
+                    var planMovieActor2 = new PlanMovieActor(1, planMovieId, req.body.actor2Id);
                     planMovieActorAdapter.write(planMovieActor1, function(resultCode){
                         if(resultCode == dbResultCode.OK){
                             planMovieActorAdapter.write(planMovieActor2, function(resultCode){
@@ -52,7 +53,8 @@ router.route('/').post(function(req, res, next){
                                     var planMovieUser = new PlanMovieUser(1, planMovieId, req.cookies.userId);
                                     planMovieUserAdapter.write(planMovieUser,function(resultCode){
                                         if(resultCode == dbResultCode.OK){
-                                            console.log("run engine");
+                                            engineAdapter.runEngine(planMovieId, actor1Id, actor2Id, next);
+
                                             //engine 추가
                                             //돌아갔음
                                             /*
