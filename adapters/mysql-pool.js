@@ -1,14 +1,14 @@
 var mysql = require('mysql');
 var fs = require('fs');
+var dbConfig;
+var pool;
 
-var pool = mysql.createPool({
-    connectionLimit: 10,
-    host: '210.107.197.176',
-    port: '3306',
-    user: 'heeeee',
-    password: '12345678!',
-    database: 'kimokjujo_service',
-    debug: false
-});
+try {
+    dbConfig = require('../secure-config').dbConfig;
+    pool = mysql.createPool(dbConfig);
+} catch (exception) {
+    throw exception;
+}
+
 
 module.exports = pool;
