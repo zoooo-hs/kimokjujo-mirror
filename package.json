@@ -14,7 +14,6 @@
     "morgan": "~1.9.0",
     "mysql": "^2.15.0",
     "node-weka": "0.0.8",
-    "request": "^2.83.0",
     "serve-favicon": "~2.4.5",
     "uniqid": "^4.1.1",
     "uniquid": "^1.1.4"
