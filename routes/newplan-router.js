@@ -31,6 +31,9 @@ router.route('/').get(function (req, res, next) {
 
 router.route('/').post(function(req, res, next){
     var sessionKey = req.cookies.sessionkey;
+
+    var returnJSON = {success: false};
+
     var userId = req.cookies.userId;
 
     sessionAdapter.typeCheck(sessionKey, function (userType) {
@@ -58,53 +61,52 @@ router.route('/').post(function(req, res, next){
                                 if (resultCode == dbResultCode.OK) {
                                     engineAdapter.runEngine(planMovieId, req.body.actor1Id, req.body.actor2Id, function(err, engineResult) {
                                         if (err) {
-                                            next();
+                                            res.json(returnJSON);
                                         }
                                         else {
-                                            var returnValue = {}
                                             listActorPowerAdapter.getList([req.body.actor1Id, req.body.actor2Id], function(resultCode, rows) {
                                                 if (resultCode == dbResultCode.OK) {
-                                                    returnValue.success = true;
-                                                    returnValue.planMovie = planMovie;
-                                                    delete returnValue.planMovie.id;
-                                                    returnValue.actors = [req.body.actor1Id, req.body.actor2Id];
-                                                    returnValue.result = {audience: engineResult[0], breakEvenPoint: engineResult[1]};
-                                                    returnValue.similarActors = rows;
+                                                    returnJSON.success = true;
+                                                    returnJSON.planMovie = planMovie;
+                                                    delete returnJSON.planMovie.id;
+                                                    returnJSON.actors = [req.body.actor1Id, req.body.actor2Id];
+                                                    returnJSON.result = {audience: engineResult[0], breakEvenPoint: engineResult[1]};
+                                                    returnJSON.similarActors = rows;
                                                     
                                                     // if user is user2 add scenario
                                                     if (userType == 2) {
-                                                        returnValue.scenario = req.body.scenario;
+                                                        returnJSON.scenario = req.body.scenario;
                                                     }
 
-                                                    res.json(returnValue);
+                                                    res.json(returnJSON);
                                                 }
                                                 else {
-                                                    next();
+                                                    res.json(returnJSON);
                                                 }
                                             });
                                         }
                                     });
                                 }
                                 else {
-                                    next();
+                                    res.json(returnJSON);
                                 }
                             });
                         }
                         else {
-                            next();
+                            res.json(returnJSON);
                         }
                     });
                 }
                 else {
-                    next();
+                    res.json(returnJSON);
                 }
             });
         }
         else{
-            next();
+            res.json(returnJSON);
         }
     });
 });
 
 
-module.exports = router;
+module.exports = router; 

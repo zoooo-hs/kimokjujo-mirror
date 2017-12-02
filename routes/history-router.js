@@ -10,6 +10,8 @@ router.get('/', function(req, res, next) {
 
     var sessionKey = req.cookies.sessionkey;
 
+    var returnJSON = {success: false};
+
     sessionAdapter.search(sessionKey, null, function (resultCode, rows) {
 
         if (resultCode == dbResultCode.OK) {
@@ -30,26 +32,32 @@ router.get('/', function(req, res, next) {
                             result.push({ 'planMovie': planMovie, 'actors': actors });
 
                         }
-                        res.json({ planMovies: result });
+
+                        returnJSON.success = true;
+                        returnJSON.planMovies = result;
+
+                        res.json(returnJSON);
                     }
                     else {
-                        next();
+                        res.json(returnJSON);
                     }
                 });
             }
             else {
-                next();
+                res.json(returnJSON);
             }
         }
         else {
-            next();
+            res.json(returnJSON);
         }
     });
 });
 
-router.get('/:planMovieId', function(req, res, next) {
+router.get('/:planMovieId', function (req, res, next) {
 
     var sessionKey = req.cookies.sessionkey;
+
+    var returnJSON = { success: false };
 
     var userType = req.cookies.userType;
 
@@ -66,7 +74,7 @@ router.get('/:planMovieId', function(req, res, next) {
 
                 var result = {};
 
-                planMovieAdapter.searchByUserId(userId, null, function(resultCode, rows) {
+                planMovieAdapter.searchByUserId(userId, null, function (resultCode, rows) {
                     if (resultCode == dbResultCode.OK) {
                         for (var i in rows) {
                             var row = rows[i];
@@ -74,23 +82,44 @@ router.get('/:planMovieId', function(req, res, next) {
                             var actors = row.actorIds.split(',');
                             planMovie = row;
                             delete row.actorIds;
-                            if(inputPlanMovieId == planMovie.id){
+                            if (inputPlanMovieId == planMovie.id) {
                                 console.log(planMovie.id);
                                 userCheck = true;
                                 break;
                             }
                             else {
-                                next();
+                                continue;
                             }
                         }
-                        if(userCheck == true){
-                            resultMovieAdapter.searchByPlanMovieId(planMovie.id, [], function(resultCode, rows){
-                                if( resultCode = dbResultCode.OK) {
+                        if (userCheck == true) {
+                            resultMovieAdapter.searchByPlanMovieId(planMovie.id, [], function (resultCode, rows) {
+                                if (resultCode = dbResultCode.OK) {
                                     var resultMovie = rows[0];
-                                    if(userType==1){
-                                        result=
-                                            {
-                                                planMovie: {
+                                    returnJSON.success = true;
+                                    if (userType == 1) {
+                                        returnJSON.planMovie = {
+                                            id: planMovie.id,
+                                            title: planMovie.title,
+                                            original: planMovie.original,
+                                            _3words: planMovie._3words,
+                                            budget: planMovie.budget,
+                                            releaseMonth: planMovie.releaseMonth,
+                                            contentRate: planMovie.contentRate,
+                                            directorId: planMovie.directorId,
+                                            makerId: planMovie.makerId,
+                                            genre: planMovie.genre
+                                        };
+                                        returnJSON.actors = actors;
+                                        returnJSON.planMovieResult = {
+                                            date: resultMovie.date,
+                                            scenario: resultMovie.scenario,
+                                            audience: resultMovie.audience,
+                                            breakEvenPoint: resultMovie.breakEvenPoint,
+                                            contract: resultMovie.contract
+                                        };
+                                    }
+                                    else {
+                                        returnJSON.planMovie = {
                                                     id: planMovie.id,
                                                     title: planMovie.title,
                                                     original: planMovie.original,
@@ -101,57 +130,31 @@ router.get('/:planMovieId', function(req, res, next) {
                                                     directorId: planMovie.directorId,
                                                     makerId: planMovie.makerId,
                                                     genre: planMovie.genre
-                                                },
-                                                actors: actors,
-                                                planMovieResult: {
-                                                    date: resultMovie.date,
-                                                    scenario: resultMovie.scenario,
-                                                    audience: resultMovie.audience,
-                                                    breakEvenPoint: resultMovie.breakEvenPoint,
-                                                    contract: resultMovie.contract
-                                                }
-                                            };
-                                    }
-                                    else{
-                                        result=
-                                            {
-                                                planMovie: {
-                                                    id: planMovie.id,
-                                                    title: planMovie.title,
-                                                    original: planMovie.original,
-                                                    _3words: planMovie._3words,
-                                                    budget: planMovie.budget,
-                                                    releaseMonth: planMovie.releaseMonth,
-                                                    contentRate: planMovie.contentRate,
-                                                    directorId: planMovie.directorId,
-                                                    makerId: planMovie.makerId,
-                                                    genre: planMovie.genre
-                                                },
-                                                actors: actors
-                                            };
-                                    }
-                                    res.json({ planMovies: result });
-                                }
+                                                };
+                                        returnJSON.actors = actors;
+                                    } 
+                                    res.json(returnJSON);
+                                } // resultcode ok
                                 else {
-                                    next();
+                                    res.json(returnJSON); 
                                 }
                             });
                         }
                         else {
-                            next();
+                            res.json(returnJSON);
                         }
                     }
                     else {
-                        next();
+                        res.json(returnJSON);
                     }
                 });
             }
             else {
-                next();
+                res.json(returnJSON);
             }
         }
         else {
-            next();
+            res.json(returnJSON);
         }
     });
 
