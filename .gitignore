@@ -1,4 +1,5 @@
 node_modules/*
 .idea/*
 secure-config.js
+.DS_Store
 
