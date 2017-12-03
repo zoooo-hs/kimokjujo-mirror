@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"> </script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/css/loding.css">
+    <script src="/js/jquery.cookie.js"></script>
+</head>
+<body>
+
+
+    <p style="font-size:28px">KIMOKJUJO.CO</p>
+
+    <div id="user1-main" style="display: none">
+        <div class="main_container">
+            <ul>
+                <a id="user1-home" href="/main">Home</a>
+                <a id="user1-newMovie" href="/new-plan">NEW MOVIE</a>
+                <a id="user1-fundlist" href="/histories">FUNDLIST</a>
+                <a id="user1-history" href="/histories">HISTORY</a>
+                <a id="user1-contact" href="contact.html">CONTACT</a>
+            </ul>
+        </div>
+    </div>
+
+    <div id="user2-main" style="display:none">
+        <!--<p style="font-size:28px">KIMOKJUJO.CO</p>-->
+        <div class="main_container">
+            <ul>
+                <a id="user2-home" href="/main">Home</a>
+                <a id="user2-newMovie" href="/new-plan">NEW</a>
+                <a id="user2-history" href="/histories">HISTORY</a>
+                <a id="user2-contact" href="contact.html">CONTACT</a>
+            </ul>
+        </div>
+        <!--<button id="logout" class="button">Logout</button>-->
+    </div>
+
+
+    <button id="logout" class="button">Logout</button>
+
+
+    <div id="plan-movie-post" style="display:none">
+        <form id="plan-movie-form">
+            <div class="plan-movie-container">
+                <h1>Prediction Boxoffice</h1>
+                <label>영화명</label>
+                <input type="text" placeholder="영화명" name="title" required><br>
+                <label>세글자여부</label>
+                <input type="radio" name="_3words" value="0" checked="checked">X
+                <input type="radio" name="_3words" value="1">O<br>
+                <label>원작 여부</label>
+                <select name="original">
+                    <option value="" selected hidden>원작 종류</option>
+                    <option value="X/original_x">없음</option>
+                    <option value="film/original_animation">TV애니메이션</option>
+                    <option value="film/original_documentary">다큐멘터리</option>
+                    <option value="film/original_drama">드라마</option>
+                    <option value="film/original_comic">만화</option>
+                    <option value="film/original_musical">뮤지컬</option>
+                    <option value="novel/original_novel">소설</option>
+                    <option value="film/original_series">시리즈</option>
+                    <option value="novel/original_essay">에세이</option>
+                    <option value="film/original_play">연극</option>
+                    <option value="film/original_film">영화</option>
+                </select><br>
+                <label>예산</label>
+                <input type="text" placeholder="예산" name="budget" required><br>
+                <label>개봉 월</label>
+                <select name="releaseMonth">
+                    <option value="" selected hidden>개봉월</option>
+                    <option value="1">1월</option>
+                    <option value="2">2월</option>
+                    <option value="3">3월</option>
+                    <option value="4">4월</option>
+                    <option value="5">5월</option>
+                    <option value="6">6월</option>
+                    <option value="7">7월</option>
+                    <option value="8">8월</option>
+                    <option value="9">9월</option>
+                    <option value="10">10월</option>
+                    <option value="11">11월</option>
+                    <option value="12">12월</option>
+                </select><br>
+                <label>관람가</label>
+                <select name="contentRate">
+                    <option value="" selected hidden>관람가</option>
+                    <option value="cr_all">전체 관람가</option>
+                    <option value="cr_12">12세 관람가</option>
+                    <option value="cr_15">15세 관람가</option>
+                    <option value="cr_19">청소년 관람불가</option>
+                </select><br>
+                <label>배우 1</label>
+                <input type="text" placeholder="배우 1" name="actor1Id" required><br>
+                <label>배우 2</label>
+                <input type="text" placeholder="배우 2" name="actor2Id" required><br>
+                <label>감독</label>
+                <input type="text" placeholder="감독" name="directorId" required><br>
+                <label>제작사</label>
+                <input type="text" placeholder="제작사" name="makerId" required><br>
+                <label>장르</label>
+                <select name="genre">
+                    <option value="" selected hidden>장르</option>
+                    <option value="genre_action">액션</option>
+                    <option value="genre_adventure">어드벤처</option>
+                    <option value="genre_animation">애니메이션</option>
+                    <option value="genre_comedy">코미디</option>
+                    <option value="genre_criminal">범죄</option>
+                    <option value="genre_documentary">다큐멘터리</option>
+                    <option value="genre_drama">드라마</option>
+                    <option value="genre_family">가족</option>
+                    <option value="genre_fantasy">판타지</option>
+                    <option value="genre_historical">사극</option>
+                    <option value="genre_horror">공포(호러)</option>
+                    <option value="genre_mystery">미스터리</option>
+                    <option value="genre_romance">멜로/로맨스</option>
+                    <option value="genre_sf">SF</option>
+                    <option value="genre_thriller">스릴러</option>
+                    <option value="genre_war">전쟁</option>
+                    <option value="genre_western">서부극(웨스턴)</option>
+                </select><br>
+
+            </div>
+
+        </form>
+        <div id="plan-movie-button">
+            <button id="plan-movie">예측하기</button>
+        </div>
+
+    </div>
+
+
+    <div id="plan-movie-result" style="display:none;" >
+        <p id="title"></p>
+        <p id="budget"></p>
+        <p id="releaseMonth"></p>
+        <p id="actor1Id"></p>
+        <p id="actor2Id"></p>
+        <p id="directorId"></p>
+        <p id="makerId"></p>
+        <p id="contentRate"></p>
+        <p id="genre"></p><br>
+        <p id="audience"></p>
+        <p id="breakEvenPoint"></p><br>
+        <ol>
+            <li id="similarActor1"></li><br>
+            <li id="similarActor2"></li><br>
+            <li id="similarActor3"></li><br>
+            <li id="similarActor4"></li>
+        </ol>
+
+    </div>
+
+    <div id="plan-movie2-post" style="display:none">
+        <form id="plan-movie2-form">
+            <div class="plan-movie2-container">
+                <h1>New Product</h1>
+                <label>영화명</label>
+                <input type="text" placeholder="영화명" name="title" required><br>
+                <label>세글자여부</label>
+                <input type="radio" name="_3words" value="0" checked="checked">X
+                <input type="radio" name="_3words" value="1">O<br>
+                <label>원작 여부</label>
+                <select name="original">
+                    <option value="" selected hidden>원작 종류</option>
+                    <option value="X/original_x">없음</option>
+                    <option value="film/original_animation">TV애니메이션</option>
+                    <option value="film/original_documentary">다큐멘터리</option>
+                    <option value="film/original_drama">드라마</option>
+                    <option value="film/original_comic">만화</option>
+                    <option value="film/original_musical">뮤지컬</option>
+                    <option value="novel/original_novel">소설</option>
+                    <option value="film/original_series">시리즈</option>
+                    <option value="novel/original_essay">에세이</option>
+                    <option value="film/original_play">연극</option>
+                    <option value="film/original_film">영화</option>
+                </select><br>
+                <label>예산</label>
+                <input type="text" placeholder="예산" name="budget" required><br>
+                <label>개봉 월</label>
+                <select name="releaseMonth">
+                    <option value="" selected hidden>개봉월</option>
+                    <option value="1">1월</option>
+                    <option value="2">2월</option>
+                    <option value="3">3월</option>
+                    <option value="4">4월</option>
+                    <option value="5">5월</option>
+                    <option value="6">6월</option>
+                    <option value="7">7월</option>
+                    <option value="8">8월</option>
+                    <option value="9">9월</option>
+                    <option value="10">10월</option>
+                    <option value="11">11월</option>
+                    <option value="12">12월</option>
+                </select><br>
+                <label>관람가</label>
+                <select name="contentRate">
+                    <option value="" selected hidden>관람가</option>
+                    <option value="cr_all">전체 관람가</option>
+                    <option value="cr_12">12세 관람가</option>
+                    <option value="cr_15">15세 관람가</option>
+                    <option value="cr_19">청소년 관람불가</option>
+                </select><br>
+                <label>배우 1</label>
+                <input type="text" placeholder="배우 1" name="actor1Id" required><br>
+                <label>배우 2</label>
+                <input type="text" placeholder="배우 2" name="actor2Id" required><br>
+                <label>감독</label>
+                <input type="text" placeholder="감독" name="directorId" required><br>
+                <label>제작사</label>
+                <input type="text" placeholder="제작사" name="makerId" required><br>
+                <label>장르</label>
+                <select name="genre">
+                    <option value="" selected hidden>장르</option>
+                    <option value="genre_action">액션</option>
+                    <option value="genre_adventure">어드벤처</option>
+                    <option value="genre_animation">애니메이션</option>
+                    <option value="genre_comedy">코미디</option>
+                    <option value="genre_criminal">범죄</option>
+                    <option value="genre_documentary">다큐멘터리</option>
+                    <option value="genre_drama">드라마</option>
+                    <option value="genre_family">가족</option>
+                    <option value="genre_fantasy">판타지</option>
+                    <option value="genre_historical">사극</option>
+                    <option value="genre_horror">공포(호러)</option>
+                    <option value="genre_mystery">미스터리</option>
+                    <option value="genre_romance">멜로/로맨스</option>
+                    <option value="genre_sf">SF</option>
+                    <option value="genre_thriller">스릴러</option>
+                    <option value="genre_war">전쟁</option>
+                    <option value="genre_western">서부극(웨스턴)</option>
+                </select><br>
+                <label>시나리오</label>
+                <input type="text" placeholder="시나리오 입력" name="scenario" maxlength="1500" required>(1500자 제한)<br>
+
+            </div>
+
+        </form>
+        <div id="plan-movie2-button">
+            <button id="plan-movie2">등록하기</button>
+        </div>
+    </div>
+
+    <div id="loading-container" style="display: none"></div>
+
+    <script src="/js/plan-movie.js"></script>
+</body>
+</html>

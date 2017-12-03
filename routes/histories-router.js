@@ -4,7 +4,8 @@ var sendHtml = require('../adapters/send-html');
 
 const dbResultCode = require('../status-codes/db-result');
 
-router.get('/',function(res, req, next){
+router.get('/',function(req, res, next){
+
     console.log(req.cookies);
 
     var sessionKey = req.cookies.sessionkey;
@@ -16,11 +17,7 @@ router.get('/',function(res, req, next){
                 var userId = rows[0].userId;
                 console.log(userId);
 
-                //sendHtml.sendHTML('history', res, next);
-
-                res.write('histories');
-
-                res.end();
+                sendHtml.sendHTML('history', res, next);
 
             }
             else {
@@ -34,7 +31,7 @@ router.get('/',function(res, req, next){
 
 });
 
-router.get('/:planMovieId',function(res, req, next){
+router.get('/:planMovieId',function(req, res, next){
 
     console.log(req.cookies);
 
@@ -47,12 +44,7 @@ router.get('/:planMovieId',function(res, req, next){
                 var userId = rows[0].userId;
                 console.log(userId);
 
-                //sendHtml.sendHTML('movie-info', res, next);
-
-                res.write('Movie information');
-
-                res.end();
-
+                sendHtml.sendHTML('movie-info', res, next); 
             }
             else {
                 next();

@@ -1,9 +1,11 @@
 var express = require('express');
 var router = express.Router();
 
+var sendHTML = require('../adapters/send-html').sendHTML;
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  sendHTML('main', res, next);
 });
 
 module.exports = router;

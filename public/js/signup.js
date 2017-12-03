@@ -1,7 +1,7 @@
 var signupStatus = false;
 
 function duplicationCheck(userType) {
-    var inputId = $('#inputId'+userType).val(); 
+    var inputId = $('#inputId' + userType).val();
         $.ajax({
             type: "POST",
             url: "/signup/dup-id",
@@ -127,11 +127,13 @@ function idSuccess(json, status){
 
 function idError(data, status){alert("ID check error");}
 
-function onSuccess(json, status){
+function onSuccess(data, status){
 
-    if(json.success == true){
+    if(data.success == true){
         alert("회원가입 되었습니다.");
         location.href = '/login';
+    } else {
+        alert('서버 문제가 발생했습니다.\n다시 시도해 주시기 바랍니다. ');
     }
 };
 

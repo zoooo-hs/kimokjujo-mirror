@@ -6,6 +6,7 @@ var planMovieUserAdapter = require('../adapters/plan-movie-userdb-adapter');
 var adapter = {};
 
 adapter.write = function(planMovie, cb) {
+    console.log(planMovie)
 
     var parameter = [planMovie.title, planMovie.original, planMovie.originalVisible, planMovie.budget, planMovie._3words, planMovie.releaseMonth, planMovie.genre, planMovie.contentRate, planMovie.directorId, planMovie.makerId];
     var writeQuery = 'insert into planmovie (title, original, originalVisible, budget, _3words, releaseMonth, genre, contentRate, directorId, makerId) values(?,?,?,?,?,?,?,?,?,?);';

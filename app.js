@@ -12,6 +12,7 @@ var newplanRouter = require('./routes/newplan-router');
 var mainPageRouter = require('./routes/main-page-router');
 var historyRouter = require('./routes/history-router');
 var logoutRouter = require('./routes/logout-router');
+var historiesRouter = require('./routes/histories-router');
 
 var app = express();
 
@@ -34,6 +35,7 @@ app.use('/signup', signupRouter);
 app.use('/new-plan', newplanRouter);
 app.use('/main', mainPageRouter);
 app.use('/history', historyRouter);
+app.use('/histories', historiesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

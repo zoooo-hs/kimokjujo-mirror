@@ -16,7 +16,7 @@
         <span class="already">I'm already a user <a href="/login">log in</a></span><br>
     </div> 
 </div>
-<form id="user1-form" class="user-form" action="">
+<form id="user1-form" class="user-form" action="" style="display:none">
     <label>ID</label>
     <input id="inputId1" type="text" placeholder="ID" name="id" maxlength="16" required="required">
     <button id="id-duplicated1" type="button">중복체크</button>
@@ -38,10 +38,10 @@
     <br>
     <input type="hidden" name="userType" value="1" required="required">
     <br>
-    <input id="signup-submit" type="submit" value="submit">
+    <input type="submit" value="submit">
 </form>
 
-<form id="user2-form" class="user-form"> 
+<form id="user2-form" class="user-form" style="display:none">
     <label>ID</label>
     <input id="inputId2" type="text" placeholder="ID" name="id" maxlength="16" required="required">
     <button id="id-duplicated2" type="button">중복체크</button>
@@ -60,7 +60,7 @@
     <br>
     <input type="hidden" name="userType" value="2" required="required">
     <br>
-    <input id="signup-submit" type="submit" value="submit">
+    <input type="submit" value="submit">
 </form>
 
 <script src = "/js/signup.js"></script>
