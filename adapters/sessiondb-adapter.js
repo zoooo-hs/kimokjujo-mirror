@@ -100,4 +100,34 @@ adapter.search = function(sessionKey, cols, cb) {
   });
 };
 
+adapter.delete = function(sessionKey, cb) {
+    var resultCode;
+    var query = 'delete FROM session where session.sessionKey = ?';
+    var parameter = [sessionKey];
+
+    pool.getConnection(function (err,conn) {
+      if(err){
+          resultCode = dbResultCode.Fail;
+          console.log(err);
+          conn.release();
+          cb(resultCode, []);
+      }
+      else{
+          conn.query(query,parameter,function (err) {
+              if(err){
+                  resultCode = dbResultCode.Fail;
+                  console.log(err);
+                  conn.release();
+                  cb(resultCode);
+              }
+              else{
+                  resultCode = dbResultCode.OK;
+                  conn.release();
+                  cb(resultCode);
+              }
+          });
+      }
+  }); 
+}; 
+
 module.exports = adapter;

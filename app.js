@@ -11,6 +11,7 @@ var signupRouter = require('./routes/signup-router');
 var newplanRouter = require('./routes/newplan-router');
 var mainPageRouter = require('./routes/main-page-router');
 var historyRouter = require('./routes/history-router');
+var logoutRouter = require('./routes/logout-router');
 
 var app = express();
 
@@ -28,6 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/login',loginRouter);
+app.use('/logout',logoutRouter);
 app.use('/signup', signupRouter);
 app.use('/new-plan', newplanRouter);
 app.use('/main', mainPageRouter);
@@ -50,8 +52,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-
-
 
 module.exports = app;
