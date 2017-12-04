@@ -12,10 +12,10 @@ router.get('/', function(req, res, next){
         if (resultCode ==dbResultCode.OK) {
             if (rows.length > 0) {
                 if (rows[0].userType == 1) {
-                    sendHTML('user1-main', res, next);
+                    sendHTML('main', res, next);
                 }
                 else if (rows[0].userType == 2) {
-                    sendHTML('user2-main', res, next);
+                    sendHTML('main', res, next);
                 }
                 else {
                     next();

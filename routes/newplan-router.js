@@ -2,11 +2,13 @@ var router = require('express').Router();
 var sessionAdapter = require('../adapters/sessiondb-adapter');
 var dbResultCode = require('../status-codes/db-result');
 var PlanMovie = require('../models/plan-movie');
+var ResultMovie = require('../models/result-movie');
 var PlanMovieActor = require('../models/plan-movie-actor');
 var PlanMovieUser = require('../models/plan-movie-user');
 var planMovieAdapter = require('../adapters/plan-moviedb-adapter');
 var planMovieActorAdapter = require('../adapters/plan-movie-actordb-adapter');
 var planMovieUserAdapter = require('../adapters/plan-movie-userdb-adapter');
+var resultMovieAdapter = require('../adapters/result-moviedb-adapter');
 var listActorPowerAdapter = require('../adapters/list-actorpowerdb-adapter');
 var engineAdapter = require('../adapters/engine-adapter');
 var sendHTML = require('../adapters/send-html').sendHTML;
@@ -35,7 +37,6 @@ router.route('/').post(function(req, res, next){
 
     var userId = req.cookies.userId;
 
-    console.log(req.body);
 
     sessionAdapter.typeCheck(sessionKey, function (userType) {
         if (userType) {
@@ -43,10 +44,8 @@ router.route('/').post(function(req, res, next){
             var original_;
             var originalVisible_;
 
-            console.log(req.body.original);
 
             var originalChunk = req.body.original.split('/');
-            console.log(originalChunk);
             if (originalChunk.length == 2) {
                 original_ = originalChunk[1];
                 originalVisible_ = originalChunk[0];
@@ -83,19 +82,29 @@ router.route('/').post(function(req, res, next){
                                         else {
                                             listActorPowerAdapter.getList([req.body.actor1Id, req.body.actor2Id], function(resultCode, rows) {
                                                 if (resultCode == dbResultCode.OK) {
+
                                                     returnJSON.success = true;
                                                     returnJSON.planMovie = planMovie;
                                                     delete returnJSON.planMovie.id;
                                                     returnJSON.actors = [req.body.actor1Id, req.body.actor2Id];
-                                                    returnJSON.result = {audience: engineResult[0], breakEvenPoint: engineResult[1]};
                                                     returnJSON.similarActors = rows;
                                                     
+                                                    var resultMovie = new ResultMovie(1, planMovieId, (new Date()).toISOString().substring(0, 10), '', engineResult[0], engineResult[1], '');
                                                     // if user is user2 add scenario
                                                     if (userType == 2) {
                                                         returnJSON.scenario = req.body.scenario;
+                                                        resultMovie.scenario = req.body.scenario;
                                                     }
+                                                    returnJSON.planMovieResult = resultMovie;
 
-                                                    res.json(returnJSON);
+                                                    resultMovieAdapter.write(resultMovie, function(resultCode) {
+                                                        if (resultCode == dbResultCode.OK) {
+                                                            res.json(returnJSON); 
+                                                        }
+                                                        else {
+                                                            res.json(returnJSON);
+                                                        }
+                                                    }); 
                                                 }
                                                 else {
                                                     res.json(returnJSON);

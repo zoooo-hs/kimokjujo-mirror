@@ -51,9 +51,9 @@ function contentRateSearch(id) {
 
 function genreSearch(id) {
     var n;
-    for (var i = 0; i < genres.length; i++) {
-        if(genres[i].data == id) {
-            n = genres[i].value;
+    for (var i = 0; i < genre.length; i++) {
+        if(genre[i].data == id) {
+            n = genre[i].value;
             return n;
         }
     }
@@ -70,19 +70,21 @@ if($.cookie('userType') == 1) {
     $('#user2-main').show();
 }
 
+var l = location.href.split('/');
+var planMovieId = l[l.length - 1];
+
 $.ajax({
     type : "GET",
-    url : "/history",
+    url : "/history/"+planMovieId,
     cache : false,
-    data : planMovieId,
     dataType : 'json',
     success : function(data) {
 
-        if(success.data == true) {
+        if(data.success == true) {
 
             var origin = originalSearch(data.planMovie.original);
-            var actor1 = actorSearch(data.planMovie.actor1Id);
-            var actor2 = actorSearch(data.planMovie.actor2Id);
+            var actor1 = actorSearch(data.actors[0]);
+            var actor2 = actorSearch(data.actors[1]);
             var director = directorSearch(data.planMovie.directorId);
             var maker = producerSearch(data.planMovie.makerId);
             var content = contentRateSearch(data.planMovie.contentRate);
@@ -97,22 +99,14 @@ $.ajax({
                 words = "X";
             }
 
-            var breakEvenPoint;
-
-            if (data.planMovieResult.breakEvenPoint == 1) {
-                breakEvenPoint = "달성";
-            }
-            else if (data.planMovieResult.breakEvenPoint == 0) {
-                breakEvenPoint = "실패";
-            }
 
             var contract;
 
-            if (data.planMovieResult.contract == 1) {
-                contract = "체결 완료";
-            }
-            else if (data.planMovieResult.contract == 0) {
+            if (data.planMovieResult.contract == '') {
                 contract = "미정";
+            }
+            else {
+                contract = "체결 완료";
             }
 
             $('#title').text('제목 : ' + data.planMovie.title);
@@ -126,12 +120,23 @@ $.ajax({
             $('#makerId').text('제작사 : ' + maker);
             $('#contentRate').text('관람등급 : ' + content);
             $('#genre').text('장르 : ' + genre);
-            $('#audience').text('관객수 예상 : ' + data.planMovieResult.audience + ' 명');
-            $('#breakEvenPoint').text('손익분기달성여부 : ' + breakEvenPoint);
             $('#contact').text('체결여부 : ' + contract);
 
             if ($.cookie('userType') == 2) { // user2일때 시나리오 추가
                 $('#scenario').text('시나리오 : ' + data.planMovieResult.scenario);
+            }
+            else {
+                var breakEvenPoint;
+
+                if (data.planMovieResult.breakEvenPoint == 1) {
+                    breakEvenPoint = "달성";
+                }
+                else if (data.planMovieResult.breakEvenPoint == 0) {
+                    breakEvenPoint = "실패";
+                }
+                $('#audience').text('관객수 예상 : ' + data.planMovieResult.audience + ' 명');
+                $('#breakEvenPoint').text('손익분기달성여부 : ' + breakEvenPoint);
+
             }
         } else {
             alert('서버 문제가 발생했습니다.\n다시 시도해 주시기 바랍니다. ');

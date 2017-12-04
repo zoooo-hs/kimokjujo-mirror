@@ -11,7 +11,7 @@ router.get('/', function(req, res) {
     sessionAdapter.search(sessionKey, null, function(resultCode, rows) {
         if (resultCode == dbResultCode.OK) {
             if (rows.length == 0) {
-                res.json(returnJSON);
+                res.redirect('/');
             }
             else {
                 sessionAdapter.delete(sessionKey, function(err) {
@@ -19,12 +19,12 @@ router.get('/', function(req, res) {
                     res.clearCookie('userId');
                     res.clearCookie('userType');
                     res.clearCookie('sessionkey');
-                    res.json(returnJSON);
+                    res.redirect('/');
                 });
             }
         }
         else {
-            res.json(returnJSON);
+            res.redirect('/');
         }
     });
 });

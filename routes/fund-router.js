@@ -20,7 +20,7 @@ router.get('/', function(req, res, next) {
 
                 var result = [];
 
-                planMovieAdapter.searchByUserId(userId, null, function(resultCode, rows) {
+                resultMovieAdapter.searchFundList(function(resultCode, rows) {
                     if (resultCode == dbResultCode.OK) {
                         for (var i in rows) {
                             var row = rows[i];
@@ -29,7 +29,7 @@ router.get('/', function(req, res, next) {
                             planMovie = row;
                             delete row.actorIds;
 
-                            result.push({ 'planMovie': planMovie, 'actors': actors });
+                            result.push({'planMovie': planMovie, 'actors': actors });
 
                         }
 
