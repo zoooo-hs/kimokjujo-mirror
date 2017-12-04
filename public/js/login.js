@@ -8,23 +8,22 @@ $("#login-submit").click(function () {
         url: "/login",
         cache: false,
         data: formData,
-        success: onSuccess,
-        error: onError
+        success: function (data, status){
+
+            if(data.success == true){
+                alert("로그인이 되었습니다.");
+                location.href='/main';
+            }
+            else if(data.success == false){
+                alert("로그인에 실패하였습니다.");
+                location.reload();
+            }
+        },
+        error: function (data, status) {
+            alert("서버 연결 실패");
+        }
     });
 });
-function onSuccess(json, status){
 
-    if(json.success == true){
-        // $.cookie('session', json.sessionkey,{path:'/'});
-        alert("로그인이 되었습니다.");
-        location.href='/main';
-    }
-    else if(json.success == false){
-        alert("로그인에 실패하였습니다.");
-        location.reload();
-    }
-;}
-
-function onError(data, status){alert("error");}
 
 

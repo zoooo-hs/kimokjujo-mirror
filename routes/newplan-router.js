@@ -9,6 +9,7 @@ var planMovieActorAdapter = require('../adapters/plan-movie-actordb-adapter');
 var planMovieUserAdapter = require('../adapters/plan-movie-userdb-adapter');
 var listActorPowerAdapter = require('../adapters/list-actorpowerdb-adapter');
 var engineAdapter = require('../adapters/engine-adapter');
+var sendHTML = require('../adapters/send-html').sendHTML;
 
 router.route('/').get(function (req, res, next) {
 
@@ -16,12 +17,10 @@ router.route('/').get(function (req, res, next) {
 
     sessionAdapter.typeCheck(sessionKey, function (userType) {
         if (userType == 1) {
-            res.write("user1 newplan");
-            res.end();
+            sendHTML('plan-movie', res, next);
         }
         else if (userType == 2) { 
-            res.write("user2 newplan");
-            res.end();
+            sendHTML('plan-movie', res, next);
         }
         else {
             next();
@@ -36,12 +35,30 @@ router.route('/').post(function(req, res, next){
 
     var userId = req.cookies.userId;
 
+    console.log(req.body);
+
     sessionAdapter.typeCheck(sessionKey, function (userType) {
         if (userType) {
+
+            var original_;
+            var originalVisible_;
+
+            console.log(req.body.original);
+
+            var originalChunk = req.body.original.split('/');
+            console.log(originalChunk);
+            if (originalChunk.length == 2) {
+                original_ = originalChunk[1];
+                originalVisible_ = originalChunk[0];
+            }
+            else {
+                res.json(returnJSON);
+            }
+
             var planMovie = new PlanMovie(1,
                 req.body.title,
-                req.body.original,
-                req.body.originalVisible,
+                original_,
+                originalVisible_,
                 req.body.budget,
                 req.body._3words,
                 req.body.releaseMonth,

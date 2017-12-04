@@ -1,18 +1,31 @@
 var signupStatus = false;
 
 function duplicationCheck(userType) {
-    var inputId = $('#inputId'+userType).val(); 
-        $.ajax({
-            type: "POST",
-            url: "/signup/dup-id",
-            cache: false,
-            data: {
-                id: inputId,
-                userType: userType
-            }, 
-            success: idSuccess,
-            error: idError
-        });
+    var inputId = $('#inputId' + userType).val();
+    $.ajax({
+        type: "POST",
+        url: "/signup/dup-id",
+        cache: false,
+        data: {
+            id: inputId,
+            userType: userType
+        },
+        success: function (json, status){
+
+            console.log(json);
+            if(json.success == true){
+                alert("사용 가능한 ID입니다.");
+                signupStatus = true;
+            }
+            else if(json.success == false){
+                alert("사용중인 ID입니다.");
+                signupStatus = false;
+            }
+        },
+        error: function (data, status) {
+            alert("ID check error");
+        }
+    });
 }
 
 function validation(userType) {
@@ -75,8 +88,7 @@ $('#userType-1').click(function () {
         }
         ev.preventDefault();
     });
-    
-    
+
 });
 
 $('#userType-2').click(function(){ 
@@ -112,27 +124,16 @@ $('#userType-2').click(function(){
     
 });
 
-function idSuccess(json, status){
+function onSuccess(data, status){
 
-    console.log(json);
-    if(json.success == true){
-        alert("사용 가능한 ID입니다.");
-        signupStatus = true;
-    }
-    else if(json.success == false){
-        alert("사용중인 ID입니다.");
-        signupStatus = false;
-    }
-};
-
-function idError(data, status){alert("ID check error");}
-
-function onSuccess(json, status){
-
-    if(json.success == true){
+    if(data.success == true){
         alert("회원가입 되었습니다.");
         location.href = '/login';
+    } else {
+        alert('서버 문제가 발생했습니다.\n다시 시도해 주시기 바랍니다. ');
     }
 };
 
-function onError(data, status){alert("Signup error please retry");}
+function onError(data, status) {
+    alert("Signup error please retry");
+}
