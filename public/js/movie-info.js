@@ -1,7 +1,5 @@
 function originalSearch(id) {
     var n;
-    console.log(originals);
-
     for (var i = 0; i < originals.length; i++) {
         if(originals[i].data == id) {
             n = originals[i].value;
@@ -75,7 +73,7 @@ var planMovieId = l[l.length - 1];
 
 $.ajax({
     type : "GET",
-    url : "/history/"+planMovieId,
+    url : "/history/" + planMovieId,
     cache : false,
     dataType : 'json',
     success : function(data) {
@@ -120,7 +118,7 @@ $.ajax({
             $('#makerId').text('제작사 : ' + maker);
             $('#contentRate').text('관람등급 : ' + content);
             $('#genre').text('장르 : ' + genre);
-            $('#contact').text('체결여부 : ' + contract);
+            $('#contract').text('체결여부 : ' + contract);
 
             if ($.cookie('userType') == 2) { // user2일때 시나리오 추가
                 $('#scenario').text('시나리오 : ' + data.planMovieResult.scenario);
