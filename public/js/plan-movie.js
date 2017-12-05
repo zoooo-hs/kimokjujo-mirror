@@ -135,11 +135,65 @@ $('#plan-movie').click(function(){
                     $('#audience').text('관객수 예상 : ' + data.planMovieResult.audience + ' 명');
                     $('#breakEvenPoint').text('손익분기달성여부 : ' + data.planMovieResult.breakEvenPoint);
                     for (var i in data.similarActors.actor1) {
-                        $('<li>'+ actorSearch(data.similarActors.actor1[i].actorId)+'</li>').appendTo('#actor1-similar-actors')
+                        $('<li ><span class="actor-trend" id=' + data.similarActors.actor1[i].actorId + '>'+ actorSearch(data.similarActors.actor1[i].actorId)+'</span></li>').appendTo('#actor1-similar-actors')
                     }
                     for (var i in data.similarActors.actor2) {
-                        $('<li>'+ actorSearch(data.similarActors.actor2[i].actorId)+'</li>').appendTo('#actor2-similar-actors')
+                        $('<li ><span class="actor-trend" id=' + data.similarActors.actor2[i].actorId + '>'+ actorSearch(data.similarActors.actor2[i].actorId)+'</span></li>').appendTo('#actor2-similar-actors')
                     }
+
+
+                    $('.actor-trend').click(function() {
+
+                        var actorId = $(this).attr('id');
+
+                        $.ajax({
+                            type : "GET",
+                            url : "/actor-trend/" + actorId,
+                            cache : false,
+                            dataType : 'json',
+                            success : function(data) {
+
+                                if(data.success == true){
+
+                                    actorPower = [{
+                                        type: "line",
+                                        dataPoints: [
+
+                                        ]
+                                    }];
+
+                                    for(var i = 0; i < data.power.length; i++){
+
+                                        var d = data.power[i].date.substring(0, 10).split('-');
+
+                                        actorPower[0].dataPoints.push({ x: new Date(d[0], d[1], d[2]), y: parseInt(data.power[i].audience)});
+                                    }
+
+                                    console.log(actorPower);
+
+                                    var chart = new CanvasJS.Chart("chartContainer", {
+                                        animationEnabled: true,
+                                        theme: "light2",
+                                        title:{
+                                            text: "Actor's Power"
+                                        },
+                                        axisY:{
+                                            includeZero: false
+                                        },
+                                        data: actorPower
+                                    });
+
+                                    chart.render();
+
+                                }
+                                else
+                                    alert('서버 문제가 발생했습니다.\n다시 시도해 주시기 바랍니다. ');
+                            },
+                            error : function(e) {
+                                alert('서버 연결 에러');
+                            }
+                        });
+                    });
                 }
                 else if($.cookie('userType') == 2)
                 {
