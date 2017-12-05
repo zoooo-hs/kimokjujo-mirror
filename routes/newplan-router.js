@@ -80,14 +80,14 @@ router.route('/').post(function(req, res, next){
                                             res.json(returnJSON);
                                         }
                                         else {
-                                            listActorPowerAdapter.getList([req.body.actor1Id, req.body.actor2Id], function(resultCode, rows) {
+                                            listActorPowerAdapter.getList([req.body.actor1Id, req.body.actor2Id], function(resultCode, similarActorList) {
                                                 if (resultCode == dbResultCode.OK) {
 
                                                     returnJSON.success = true;
                                                     returnJSON.planMovie = planMovie;
                                                     delete returnJSON.planMovie.id;
                                                     returnJSON.actors = [req.body.actor1Id, req.body.actor2Id];
-                                                    returnJSON.similarActors = rows;
+                                                    returnJSON.similarActors = similarActorList;
                                                     
                                                     var resultMovie = new ResultMovie(1, planMovieId, (new Date()).toISOString().substring(0, 10), '', engineResult[0], engineResult[1], '');
                                                     // if user is user2 add scenario

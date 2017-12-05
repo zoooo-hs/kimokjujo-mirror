@@ -8,14 +8,14 @@ adapter.getList = function(actorIds , cb){
     var parameter = [];
 
     var resultCode = dbResultCode.Fail; 
-    var result; 
+    var result = {}; 
 
     pool.getConnection(function(err, conn) {
         if (err) {
             console.log(err);
             resultCode = dbResultCode.Fail;
             conn.release();
-            cb(resultCode, []);
+            cb(resultCode, {});
         }
         else {
             parameter = [actorIds[0], actorIds[0]]
@@ -24,23 +24,23 @@ adapter.getList = function(actorIds , cb){
                     console.log(err);
                     resultCode = dbResultCode.Fail;
                     conn.release();
-                    cb(resultCode, []);
+                    cb(resultCode, {});
                 }
                 else {
                     parameter = [actorIds[1], actorIds[1]]
                     resultCode = dbResultCode.OK;
-                    result = rows;
+                    result.actor1 = rows;
                     conn.query(query, parameter, function(err, rows){
                         if(err){
                             console.log(err);
                             resultCode = dbResultCode.Fail;
                             conn.release();
-                            cb(resultCode,[]);
+                            cb(resultCode, {});
                         }
                         else{
                             resultCode = dbResultCode.OK;
                             conn.release();
-                            result.concat(rows);
+                            result.actor2 = rows;
                             cb(resultCode, result);
                         }
                     });

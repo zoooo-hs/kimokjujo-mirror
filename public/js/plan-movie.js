@@ -132,18 +132,20 @@ $('#plan-movie').click(function(){
                 if($.cookie('userType') == 1){
                     $('#user1-result').show();
 
-                    $('#audience').text('관객수 예상 : ' + data.result.audience + ' 명');
-                    $('#breakEvenPoint').text('손익분기달성여부 : ' + data.result.breakEvenPoint);
-                    $('#similarActor1').text('추천배우1 : ' + actorSearch(data.similarActors[0].actorId));
-                    $('#similarActor2').text('추천배우2 : ' + actorSearch(data.similarActors[1].actorId));
-                    $('#similarActor3').text('추천배우3 : ' + actorSearch(data.similarActors[2].actorId));
-                    $('#similarActor4').text('추천배우4 : ' + actorSearch(data.similarActors[3].actorId));
+                    $('#audience').text('관객수 예상 : ' + data.planMovieResult.audience + ' 명');
+                    $('#breakEvenPoint').text('손익분기달성여부 : ' + data.planMovieResult.breakEvenPoint);
+                    for (var i in data.similarActors.actor1) {
+                        $('<li>'+ actorSearch(data.similarActors.actor1[i].actorId)+'</li>').appendTo('#actor1-similar-actors')
+                    }
+                    for (var i in data.similarActors.actor2) {
+                        $('<li>'+ actorSearch(data.similarActors.actor2[i].actorId)+'</li>').appendTo('#actor2-similar-actors')
+                    }
                 }
                 else if($.cookie('userType') == 2)
                 {
                     $('#user2-result').show();
 
-                    $('#scenario').text('시나리오 : ' + data.planMovieResult.scenario);
+                    $('#scenario').text('시나리오 : ' + data.scenario);
                 }
             }
             else

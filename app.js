@@ -39,7 +39,7 @@ app.use('/main', mainPageRouter);
 app.use('/history', historyRouter);
 app.use('/histories', historiesRouter);
 app.use('/fund-list', fundListRouter);
-app.use('/fund'. fundRouter);
+app.use('/fund', fundRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
