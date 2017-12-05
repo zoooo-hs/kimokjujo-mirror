@@ -15,6 +15,7 @@ var logoutRouter = require('./routes/logout-router');
 var historiesRouter = require('./routes/histories-router');
 var fundListRouter = require('./routes/fund-list-router');
 var fundRouter = require('./routes/fund-router');
+var actorTrendRouter = require('./routes/actor-trend-router');
 
 var app = express();
 
@@ -40,6 +41,7 @@ app.use('/history', historyRouter);
 app.use('/histories', historiesRouter);
 app.use('/fund-list', fundListRouter);
 app.use('/fund', fundRouter);
+app.use('/actor-trend', actorTrendRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
