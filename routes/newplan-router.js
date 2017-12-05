@@ -31,13 +31,37 @@ router.route('/').get(function (req, res, next) {
 });
 
 router.route('/').post(function(req, res, next){
-    var sessionKey = req.cookies.sessionkey;
-
     var returnJSON = {success: false};
 
-    var userId = req.cookies.userId;
+    var sessionKey; 
+    var userId;
 
+    if (req.cookies.userType == undefined || req.cookies.sessionkey == undefined || req.cookies.userId) {
+        res.json(returnJSON);
+    }
+    else {
+        sessionKey = req.cookies.sessionkey;
+        userId = req.cookies.userId;
+    }
 
+    if (req.cookies.userType == 1) {
+        if (req.body.title == undefined || req.body.original == undefined || req.body.budget == undefined || req.body._3words == undefined || req.body.releaseMonth == undefined
+            || req.body.genre == undefined || req.body.contentRate == undefined || req.body.directorId == undefined || req.body.makerId == undefined) {
+            res.json(returnJSON);
+        }
+        else {
+
+        }
+    }
+    else {
+        if (req.body.title == undefined || req.body.original == undefined || req.body.budget == undefined || req.body._3words == undefined || req.body.releaseMonth == undefined
+            || req.body.genre == undefined || req.body.contentRate == undefined || req.body.directorId == undefined || req.body.makerId == undefined || req.body.scenario == undefined) {
+            res.json(returnJSON);
+        }
+        else {
+
+        }
+    }
     sessionAdapter.typeCheck(sessionKey, function (userType) {
         if (userType) {
 

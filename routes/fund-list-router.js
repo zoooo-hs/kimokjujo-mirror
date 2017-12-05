@@ -21,7 +21,7 @@ router.get('/',function(req, res, next){
                     sendHtml.sendHTML('fund-list', res, next); 
                 }
                 else {
-
+                    next();
                 } 
             }
             else {

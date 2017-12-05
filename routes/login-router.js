@@ -21,6 +21,13 @@ router.route('/').post(function(req,res){
     password = req.body.password;
     userType = req.body.userType;
 
+    if (id == undefined || password == undefined || userType == undefined) {
+        res.json({success: false});
+    }
+    else {
+
+    }
+
     if(userType==1){
         user1Adapter.search(id,[],function(resultCode,rows){
             if(resultCode==dbResultCode.OK){

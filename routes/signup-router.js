@@ -16,8 +16,17 @@ router.get('/', function(req, res, next){
 
 router.post('/', function(req, res){
 
+    if (req.body.userType == undefined) {
+        res.json({ success : false });
+    } 
     // user1 or user 2
-    if (req.body.userType == 1) {
+    else if (req.body.userType == 1) {
+        if (req.body.id == undefined, req.body.password == undefined, req.body.address == undefined, req.body.contact == undefined, req.body.companyName == undefined, req.body.companyLicense == undefined){
+            res.json({ success : false});  
+        }
+        else {
+
+        }
         
         user1Adapter.search(req.body.id, null, function(resultCode, rows) {
             if (resultCode == dbResultCode.Fail) {
@@ -36,6 +45,12 @@ router.post('/', function(req, res){
         });
     } else {
         user2Adapter.search(req.body.id, null, function(resultCode, rows) {
+            if (req.body.id == undefined, req.body.password == undefined, req.body.address == undefined, req.body.contact == undefined, req.body.name == undefined){
+                res.json({ success : false});  
+            }
+            else{
+
+            }
             if (resultCode == dbResultCode.Fail) {
                 res.json({ success: false });
             }
@@ -55,7 +70,10 @@ router.post('/', function(req, res){
 
 router.post('/dup-id', function(req, res){
 
-    if (req.body.userType == 1) {
+    if (req.body.userType == undefined || req.body.id == undefined) {
+        res.json({success: false});
+    }
+    else if (req.body.userType == 1) {
         user1Adapter.search(req.body.id, null, function(resultCode, rows){
             if (resultCode == dbResultCode.Fail) {
                 res.json({success: false});
@@ -67,7 +85,7 @@ router.post('/dup-id', function(req, res){
             }
         });
     }
-    else{
+    else {
         user2Adapter.search(req.body.id, null, function(resultCode, rows){
             console.log(req.body)
             if (resultCode == dbResultCode.Fail) {
