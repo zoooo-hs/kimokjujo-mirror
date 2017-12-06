@@ -8,7 +8,7 @@ router.get('/:actorId', function(req, res) {
 
 
     if (req.params.actorId == undefined) {
-        res.json(returnJSON);
+        return res.json(returnJSON);
     }
     else {
         actorId = req.params.actorId;

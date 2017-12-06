@@ -36,18 +36,20 @@ router.route('/').post(function(req, res, next){
     var sessionKey; 
     var userId;
 
-    if (req.cookies.userType == undefined || req.cookies.sessionkey == undefined || req.cookies.userId) {
-        res.json(returnJSON);
+    if (req.cookies.userType == undefined || req.cookies.sessionkey == undefined || req.cookies.userId == undefined) {
+        console.log('hello')
+        return res.json(returnJSON);
     }
     else {
         sessionKey = req.cookies.sessionkey;
         userId = req.cookies.userId;
+        console.log(userId)
     }
 
     if (req.cookies.userType == 1) {
         if (req.body.title == undefined || req.body.original == undefined || req.body.budget == undefined || req.body._3words == undefined || req.body.releaseMonth == undefined
             || req.body.genre == undefined || req.body.contentRate == undefined || req.body.directorId == undefined || req.body.makerId == undefined) {
-            res.json(returnJSON);
+            return res.json(returnJSON);
         }
         else {
 
@@ -56,7 +58,7 @@ router.route('/').post(function(req, res, next){
     else {
         if (req.body.title == undefined || req.body.original == undefined || req.body.budget == undefined || req.body._3words == undefined || req.body.releaseMonth == undefined
             || req.body.genre == undefined || req.body.contentRate == undefined || req.body.directorId == undefined || req.body.makerId == undefined || req.body.scenario == undefined) {
-            res.json(returnJSON);
+            return res.json(returnJSON);
         }
         else {
 
@@ -75,7 +77,7 @@ router.route('/').post(function(req, res, next){
                 originalVisible_ = originalChunk[0];
             }
             else {
-                res.json(returnJSON);
+                return res.json(returnJSON);
             }
 
             var planMovie = new PlanMovie(1,

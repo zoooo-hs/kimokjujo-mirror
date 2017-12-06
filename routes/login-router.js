@@ -22,7 +22,7 @@ router.route('/').post(function(req,res){
     userType = req.body.userType;
 
     if (id == undefined || password == undefined || userType == undefined) {
-        res.json({success: false});
+        return res.json({success: false});
     }
     else {
 

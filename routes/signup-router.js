@@ -17,12 +17,12 @@ router.get('/', function(req, res, next){
 router.post('/', function(req, res){
 
     if (req.body.userType == undefined) {
-        res.json({ success : false });
+        return res.json({ success : false });
     } 
     // user1 or user 2
     else if (req.body.userType == 1) {
         if (req.body.id == undefined, req.body.password == undefined, req.body.address == undefined, req.body.contact == undefined, req.body.companyName == undefined, req.body.companyLicense == undefined){
-            res.json({ success : false});  
+            return res.json({ success : false});  
         }
         else {
 
@@ -46,7 +46,7 @@ router.post('/', function(req, res){
     } else {
         user2Adapter.search(req.body.id, null, function(resultCode, rows) {
             if (req.body.id == undefined, req.body.password == undefined, req.body.address == undefined, req.body.contact == undefined, req.body.name == undefined){
-                res.json({ success : false});  
+                return res.json({ success : false});  
             }
             else{
 
