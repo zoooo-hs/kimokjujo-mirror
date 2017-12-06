@@ -116,8 +116,9 @@ function actorSorting(object) {
 }
 
 
-$('#plan-movie').click(function(){
+$('#plan-movie-form').submit(function(evt){
     var formData = $("#plan-movie-form").serialize();
+    evt.preventDefault();
 
     console.log(formData);
 
