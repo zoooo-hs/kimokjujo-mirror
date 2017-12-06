@@ -2,13 +2,36 @@
     position: absolute;
     width: 100vw;
     bottom: 0; 
-    height: 50vh;
+    height: 70vh;
     padding: 40px; 
 
     font-family: 'Barlow Semi Condensed', 'Nanum Gothic';
     background-color: rgba(255, 255, 255, 0.55);
 
     text-align: center;
+    overflow: hidden;
 
+}
+.history-list-box {
+}
+#planList {
+    width: 100vw;
+    height: 50vh;
     overflow: scroll;
+}
+
+.title-box > h1 {
+    font-size: 70px;
+    margin: 0px;
+    font-family: 'Barlow Semi Condensed', 'Nanum Gothic';
+    border-style: solid;
+    border-width: thin;
+    border-color: rgb(61, 58, 58);
+    border-right-style: none;
+    border-left-style: none;
+    border-top-style: none;
+}
+.title-box > span {
+    font-size: 35px;
+    font-family: 'Zeyada', cursive;
 }
