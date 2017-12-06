@@ -122,8 +122,8 @@ $('#plan-movie').click(function(){
                 $('#title').text('제목 : ' + data.planMovie.title);
                 $('#budget').text('예산 : ' + data.planMovie.budget + ' 원');
                 $('#releaseMonth').text('개봉월 : ' + data.planMovie.releaseMonth + ' 월');
-                $('배우 1 : <span class="actor-trend" id="' + data.actors[0] + '">' + actor1 + '</span>').appendTo('#actor1Id');
-                $('배우 2 : <span class="actor-trend" id="' + data.actors[1] + '">' + actor2 + '</span>').appendTo('#actor2Id');
+                $('<span>배우 1 : </span><span class="actor-trend" id="' + data.actors[0] + '">' + actor1 + '</span>').appendTo('#actor1Id');
+                $('<span>배우 2 : </span><span class="actor-trend" id="' + data.actors[1] + '">' + actor2 + '</span>').appendTo('#actor2Id');
                 $('#directorId').text('감독 : ' + director);
                 $('#makerId').text('제작사 : ' + maker);
                 $('#contentRate').text('관람등급 : ' + content);
@@ -154,6 +154,7 @@ $('#plan-movie').click(function(){
                             success : function(data) {
 
                                 if(data.success == true){
+                                    var actorPower;
 
                                     actorPower = [{
                                         type: "line",
