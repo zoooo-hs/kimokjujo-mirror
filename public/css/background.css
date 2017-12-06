@@ -1,0 +1,20 @@
+.background-img {
+    background-attachment: fixed;
+    overflow: hidden;
+}
+.background-img > img{
+    position: absolute;
+    min-height: 100%;
+    width : 100%;
+
+    left: 50vw;
+    top: 0vh;
+
+    filter: blur(5px);
+    transform: translate(-50%, 0);
+
+
+    margin: 0;
+    padding: 0;
+    z-index: -443124;
+}

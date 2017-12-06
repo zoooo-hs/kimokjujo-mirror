@@ -1,0 +1,23 @@
+#main-title {
+    position: absolute;
+
+    width: 100%;
+
+    text-align: center;
+    color: white;
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    left: 50%;
+    top: 50%; 
+    transform: translate(-50%, -50%);
+}
+
+#main-title span {
+    font-size: 72px;
+    text-shadow: 2px 2px #141414;
+    border-style: solid;
+    border-width: thin;
+    border-color: white;
+    border-right-style: none;
+    border-left-style: none;
+
+}

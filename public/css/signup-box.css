@@ -1,0 +1,39 @@
+.signup-box {
+    position: absolute;
+    width: 50vw;
+    left: 50%;
+    top: 50%; 
+    padding: 40px; 
+    transform: translate(-50%, -50%);
+
+    font-family: 'Barlow Semi Condensed', 'Nanum Gothic';
+    background-color: rgba(255, 255, 255, 0.55);
+
+    text-align: center;
+}
+
+.signup-box  input[type=text], input[type=password] , input[type=tel], input[type=email]{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+button, input[type=submit] {
+    background-color: #373737;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+} 
+button:hover, input[type=submit] {
+    opacity: 0.8;
+}
+
+.id-dup-check {
+    font-size: 15px;
+}

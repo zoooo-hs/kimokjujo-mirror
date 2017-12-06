@@ -1,0 +1,39 @@
+.plan-movie-box {
+    position: absolute;
+    top: 50%; 
+    left: 50%;
+    min-width: 33vw;
+    padding: 40px;
+    font-family: 'Barlow Semi Condensed', 'Nanum Gothic';
+    background-color: rgba(255, 255, 255, 0.55);
+
+    transform: translate(-50%, -50%);
+
+    text-align: center;
+}
+
+.plan-movie-box  input[type=text], input[type=password] , input[type=tel], input[type=email], textarea{
+    width: 80%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+label {
+    display: block;
+}
+
+button, input[type=submit] {
+    background-color: #373737;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 80%;
+} 
+button:hover, input[type=submit] {
+    opacity: 0.8;
+}

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/css/signup-box.css">
+
+    <link rel="stylesheet" href="//fonts.googleapis.com/earlyaccess/nanumgothic.css"> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="/js/jquery.cookie.js"></script>
+    <link rel="stylesheet" href="/css/background.css">
+    <link href="https://fonts.googleapis.com/css?family=Zeyada" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Barlow+Semi+Condensed" rel="stylesheet"> 
+    <link href="/css/navigation-bar.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Signup</title>
+    <link rel="stylesheet" href="/css/signup-style.css">
+</head>
+<body>
+
+        <div class="background-img">
+            <img src="/images/background-img.jpeg">
+        </div>
+        <div id="main">
+            <div class="container">
+                <ul class="navbar-ul">
+                    <li class="navbar-li">
+                        <p>KIMOKJUJO.CO</p>
+                    </li>
+        
+                    <li class="navbar-li">
+                        <a id="logout" href="/logout" style="display:none">LOGOUT</a>
+                    </li>
+                    <li class="navbar-li">
+                        <a id="login" href="/login" style="display:none">LOGIN/SIGNUP</a>
+                    </li>
+                    <li class="navbar-li">
+                        <a id="contact" href="/contact" style="display:none">CONTACT</a>
+                    </li>
+                    <li class="navbar-li">
+                        <a id="fundList" href="/fund-list" style="display:none">FUND LIST</a>
+                    </li>
+                    <li class="navbar-li">
+                        <a id="history" href="/histories" style="display:none">HISTORY</a>
+                    </li>
+                    <li class="navbar-li">
+                        <a id="newMovie" href="/new-plan" style="display:none">NEW MOVIE</a>
+                    </li>
+                    <li class="navbar-li">
+                        <a id="home" href="/main">HOME</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="signup-box"> 
+            <h2>SIGN UP</h2>
+            <div id="user-signup-form">
+                <div class="signup-container">
+                    <button id="userType-1">투자자</button>
+                    <button id="userType-2">제작자</button>
+                    <br>
+                    <span class="already">I'm already a user
+                        <a href="/login">log in</a>
+                    </span>
+                    <br>
+                </div>
+            </div>
+            <form id="user1-form" class="user-form" action="" style="display:none">
+                <input id="inputId1" type="text" placeholder="ID" name="id" maxlength="16" required="required">
+                <span class="id-dup-check" style="display: none"></span>
+                <br>
+                <input id="inputPassword1" type="password" placeholder="Password" name="password" maxlength="16" required="required">
+                <br>
+                <input type="text" placeholder="Company Name" name="companyName" maxlength="40" required="required">
+                <br>
+                <input type="text" placeholder="Company License" name="companyLicense" maxlength="40" required="required">
+                <br>
+                <input type="tel" placeholder="Contact" name="contact" maxlength="20" required="required">
+                <br>
+                <input type="email" placeholder="e-mail address" name="address" maxlength="40" required="required">
+                <br>
+                <input type="hidden" name="userType" value="1" required="required">
+                <br>
+                <input type="submit" value="SUBMIT">
+            </form>
+        
+            <form id="user2-form" class="user-form" style="display:none">
+                <input id="inputId2" type="text" placeholder="ID" name="id" maxlength="16" required="required">
+                <span class="id-dup-check" style="display: none"></span>
+                <br>
+                <input id="inputPassword2" type="password" placeholder="Password" name="password" maxlength="16" required="required">
+                <br>
+                <input type="text" placeholder="Name" name="name" maxlength="40" required="required">
+                <br>
+                <input type="tel" placeholder="Contact" name="contact" maxlength="20" required="required">
+                <br>
+                <input type="email" placeholder="e-mail address" name="address" maxlength="40" required="required">
+                <br>
+                <input type="hidden" name="userType" value="2" required="required">
+                <br>
+                <input type="submit" value="SUBMIT">
+            </form>
+        
+        </div>
+
+<script src = "/js/signup.js"></script>
+</body>
+</html>

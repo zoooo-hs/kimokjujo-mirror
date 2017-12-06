@@ -1,0 +1,22 @@
+select {
+    width: 75%;
+    height: 39px;
+    padding: .5em;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    font-family: inherit;
+    border: 1px solid #999;
+    border-radius: 0px;
+  }
+  
+.select-box {
+    width: 45%;
+    display: inline-block;
+}
+.radio-word-box {
+    display: inline-block;
+}
+
+.radio-word-box label {
+    margin-right: 20px;
+}

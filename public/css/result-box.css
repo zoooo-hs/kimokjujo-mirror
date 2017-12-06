@@ -1,0 +1,45 @@
+.result-box {
+    position: absolute;
+    bottom: 0; 
+    left: 50%;
+    width: 100vw;
+    padding: 40px;
+    font-family: 'Barlow Semi Condensed', 'Nanum Gothic';
+    background-color: rgba(255, 255, 255, 0.55);
+
+    transform: translate(-50%, 0%);
+
+    display: flex;
+    justify-content: center;
+}
+
+.result-box > .result-box-child {
+    width: 25vw;
+    margin: 40px;
+    margin-top: 100px;
+    padding: 30px;
+    text-align: left;
+    font-size: 20px;
+    background-color: rgba(0, 0, 0, 0.075);
+    /* background-color: white; */
+}
+
+#title {
+    margin: 0px;
+    position: absolute;
+    left:50%;
+    top: 0;
+    font-size: 70px;
+    transform: translate(-50%, 0);
+    border-style: solid;
+    border-width: thin;
+    border-color: rgb(61, 58, 58);
+    border-right-style: none;
+    border-left-style: none;
+    border-top-style: none;
+
+}
+
+#chartContainer {
+    background-color: transparent;
+}
