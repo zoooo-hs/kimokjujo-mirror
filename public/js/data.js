@@ -1,4 +1,5 @@
 var actors = [
+    {value :'신인배우', data :'actor_0'},
     {value :'감우성', data :'actor_1'},
     {value :'강동원', data :'actor_2'},
     {value :'강성연', data :'actor_3'},
@@ -626,6 +627,7 @@ var actors = [
     {value :'히라야마 아야', data :'actor_625'}
 ];
 var directors = [
+    { value: '신인감독', data: 'director_0'  },
     { value: '조민호', data: 'director_1'  },
     { value: '여균동', data: 'director_2'  },
     { value: '장용우', data: 'director_3'  },
@@ -1089,6 +1091,7 @@ var directors = [
 ];
 
 var producers = [
+    { value: '신규 제작사', data: 'producer_0'  },
     { value: '영화사 무쇠팔', data: 'producer_1'  },
     { value: '리얼라이즈픽쳐스(주)', data: 'producer_2'  },
     { value: '(주)다세포클럽', data: 'producer_3'  },

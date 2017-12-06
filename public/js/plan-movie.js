@@ -102,6 +102,14 @@ function genreSearch(id) {
     }
 }
 
+function bepSearch(id) {
+    if(id == 1) {
+        return "달성";
+    } else {
+        return "실패";
+    }
+}
+
 function actorSorting(object) {
 
 
@@ -150,7 +158,7 @@ $('#plan-movie').click(function(){
                     $('.user1-result').show();
 
                     $('#audience').text('관객수 예상 : ' + data.planMovieResult.audience + ' 명');
-                    $('#breakEvenPoint').text('손익분기달성여부 : ' + data.planMovieResult.breakEvenPoint);
+                    $('#breakEvenPoint').text('손익분기달성여부 : ' + bepSearch(data.planMovieResult.breakEvenPoint));
                     for (var i in data.similarActors.actor1) {
                         $('<li ><span class="actor-trend" id=' + data.similarActors.actor1[i].actorId + '>'+ actorSearch(data.similarActors.actor1[i].actorId)+'</span></li>').appendTo('#actor1-similar-actors')
                     }
