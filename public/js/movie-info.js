@@ -107,7 +107,7 @@ $.ajax({
                 contract = "체결 완료";
             }
 
-            $('#title').text('제목 : ' + data.planMovie.title);
+            $('#title').text(data.planMovie.title);
             $('#_3words').text('세글자여부 : ' + words);
             $('#original').text('원작 : ' + origin);
             $('#budget').text('예산 : ' + data.planMovie.budget + ' 원');

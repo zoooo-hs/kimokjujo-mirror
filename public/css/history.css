@@ -1,3 +1,17 @@
 table {
     margin: 0px auto;
 }
+
+.title-box > table {
+    background-color: rgba(92, 88, 88, 0.7);
+    padding : 8px;
+    margin-bottom: 10px;
+}
+
+#planList td {
+    background-color: rgba(255, 255, 255, 0.644); 
+    padding : 4px;
+    }
+#planList table {
+    border-collapse: collapse;
+}
