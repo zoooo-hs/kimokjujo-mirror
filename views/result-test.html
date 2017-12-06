@@ -79,7 +79,7 @@
             </div>
             <form id="plan-movie-form">
                 <div class="plan-movie-container">
-                    <input type="text" placeholder="영화명" name="title" required>
+                    <input type="text" placeholder="영화명" name="title" value="test" required>
                     <div class="radio-word-box">
                         <label for="">
                             제목이 3 글자 입니다
@@ -93,15 +93,15 @@
                         </label>
                     </div>
 
-                    <input type="text" placeholder="예산" name="budget" required>
+                    <input type="text" placeholder="예산" name="budget" value="123123" required>
                     <input id="actor1Name" type="text" placeholder="배우 1" required>
-                    <input id="actor1Real" type="hidden" name="actor1Id">
+                    <input id="actor1Real" type="hidden" name="actor1Id" value="actor_45">
                     <input id="actor2Name" type="text" placeholder="배우 2" required>
-                    <input id="actor2Real" type="hidden" name="actor2Id">
+                    <input id="actor2Real" type="hidden" name="actor2Id" value="actor_49">
                     <input id="directorName" type="text" placeholder="감독" required>
-                    <input id="directorReal" type="hidden" name="directorId">
+                    <input id="directorReal" type="hidden" name="directorId" value="director_231">
                     <input id="makerName" type="text" placeholder="제작사" required>
-                    <input id="makerReal" type="hidden" name="makerId">
+                    <input id="makerReal" type="hidden" name="makerId" value="producer_44">
                 </div>
                 <div id="input-scenario" style="display: none">
 
@@ -112,8 +112,8 @@
 
                 <div class="select-box">
                     <select name="original">
-                        <option value="" selected hidden>원작 종류</option>
-                        <option value="X/original_x">없음</option>
+                        <option value="" hidden>원작 종류</option>
+                        <option value="X/original_x" selected>없음</option>
                         <option value="film/original_animation">TV애니메이션</option>
                         <option value="film/original_documentary">다큐멘터리</option>
                         <option value="film/original_drama">드라마</option>
@@ -128,8 +128,8 @@
                 </div>
                 <div class="select-box">
                     <select name="releaseMonth">
-                        <option value="" selected hidden>개봉월</option>
-                        <option value="1">1월</option>
+                        <option value="" hidden>개봉월</option>
+                        <option value="1" selected>1월</option>
                         <option value="2">2월</option>
                         <option value="3">3월</option>
                         <option value="4">4월</option>
@@ -145,8 +145,8 @@
                 </div>
                 <div class="select-box">
                     <select name="genre">
-                        <option value="" selected hidden>장르</option>
-                        <option value="genre_action">액션</option>
+                        <option value="" hidden>장르</option>
+                        <option value="genre_action" selected>액션</option>
                         <option value="genre_adventure">어드벤처</option>
                         <option value="genre_animation">애니메이션</option>
                         <option value="genre_comedy">코미디</option>
@@ -167,8 +167,8 @@
                 </div>
                 <div class="select-box">
                     <select name="contentRate">
-                        <option value="" selected hidden>관람가</option>
-                        <option value="cr_all">전체 관람가</option>
+                        <option value="" hidden>관람가</option>
+                        <option value="cr_all" selected>전체 관람가</option>
                         <option value="cr_12">12세 관람가</option>
                         <option value="cr_15">15세 관람가</option>
                         <option value="cr_19">청소년 관람불가</option>
@@ -181,6 +181,7 @@
 
         </div>
     </div>
+
     <div id="plan-movie-result" class="result-box" style="display:none;">
 
         <h1 id="title"></h1>
@@ -221,6 +222,7 @@
     </div>
 
     <div id="loading-container" style="display: none"></div>
+
     <script src="/js/data.js"></script>
     <script src="/js/plan-movie.js"></script>
 

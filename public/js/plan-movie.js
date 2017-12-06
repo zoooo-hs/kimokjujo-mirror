@@ -136,7 +136,7 @@ $('#plan-movie').click(function(){
                 var content = contentRateSearch(data.planMovie.contentRate);
                 var genre = genreSearch(data.planMovie.genre);
 
-                $('#title').text('제목 : ' + data.planMovie.title);
+                $('#title').text(data.planMovie.title);
                 $('#budget').text('예산 : ' + data.planMovie.budget + ' 원');
                 $('#releaseMonth').text('개봉월 : ' + data.planMovie.releaseMonth + ' 월');
                 $('<span>배우 1 : </span><span class="actor-trend" id="' + data.actors[0] + '">' + actor1 + '</span>').appendTo('#actor1Id');
@@ -147,7 +147,7 @@ $('#plan-movie').click(function(){
                 $('#genre').text('장르 : ' + genre);
 
                 if($.cookie('userType') == 1){
-                    $('#user1-result').show();
+                    $('.user1-result').show();
 
                     $('#audience').text('관객수 예상 : ' + data.planMovieResult.audience + ' 명');
                     $('#breakEvenPoint').text('손익분기달성여부 : ' + data.planMovieResult.breakEvenPoint);
@@ -192,11 +192,14 @@ $('#plan-movie').click(function(){
                                     var chart = new CanvasJS.Chart("chartContainer", {
                                         animationEnabled: true,
                                         theme: "light2",
+                                        backgroundColor: 'rgba(0, 0, 0, 0.075)',
                                         title:{
-                                            text: "Actor's Power"
+                                            text: actorSearch(actorId),
+                                            fontColor: 'black' 
                                         },
                                         axisY:{
-                                            includeZero: false
+                                            includeZero: false,
+                                            fontColor: 'black' 
                                         },
                                         data: actorPower
                                     });
@@ -215,7 +218,7 @@ $('#plan-movie').click(function(){
                 }
                 else if($.cookie('userType') == 2)
                 {
-                    $('#user2-result').show();
+                    $('.user2-result').show();
 
                     $('#scenario').text('시나리오 : ' + data.scenario);
                 }

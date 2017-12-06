@@ -43,6 +43,10 @@ app.use('/fund-list', fundListRouter);
 app.use('/fund', fundRouter);
 app.use('/actor-trend', actorTrendRouter);
 
+app.get('/test', function(req,res, next) {
+  require('./adapters/send-html').sendHTML('result-test', res, next);
+})
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
