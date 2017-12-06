@@ -14,16 +14,22 @@ function duplicationCheck(userType) {
 
             console.log(json);
             if(json.success == true){
-                alert("사용 가능한 ID입니다.");
+                $('.id-dup-check').text("사용 가능한 ID입니다.");
+                $('.id-dup-check').css({'color': 'black'});
+                $('.id-dup-check').show();
                 signupStatus = true;
             }
             else if(json.success == false){
-                alert("사용중인 ID입니다.");
+                $('.id-dup-check').text("사용중인 ID입니다.");
+                $('.id-dup-check').css({'color': 'red'});
+                $('.id-dup-check').show();
                 signupStatus = false;
             }
         },
         error: function (data, status) {
-            alert("ID check error");
+            $('.id-dup-check').text("ID check error");
+            $('.id-dup-check').css({ 'color': 'red' });
+            $('.id-dup-check').show();
         }
     });
 }
@@ -61,7 +67,7 @@ function validation(userType) {
 $('#userType-1').click(function () {
     $('#user-signup-form').hide();
     $('#user1-form').show();
-    $("#id-duplicated1").click(function () {
+    $("#inputId1").focusout(function () {
         duplicationCheck(1);
     });
     
@@ -94,7 +100,7 @@ $('#userType-1').click(function () {
 $('#userType-2').click(function(){ 
     $('#user-signup-form').hide();
     $('#user2-form').show(); 
-    $("#id-duplicated2").click(function() {
+    $("#inputId2").focusout(function() {
         duplicationCheck(2);
     });
     
@@ -127,7 +133,6 @@ $('#userType-2').click(function(){
 function onSuccess(data, status){
 
     if(data.success == true){
-        alert("회원가입 되었습니다.");
         location.href = '/login';
     } else {
         alert('서버 문제가 발생했습니다.\n다시 시도해 주시기 바랍니다. ');

@@ -7,6 +7,22 @@ else if($.cookie('userType') == 2){
     $('#input-scenario').show();
 }
 
+$('#actor1Name').focus(function() {
+    $('#actor1Real').val('actor_0')
+    console.log($('#actor1Real').val())
+});
+$('#actor2Name').focus(function() {
+    $('#actor2Real').val('actor_0')
+    console.log($('#actor2Real').val())
+});
+$('#directorName').focus(function() {
+    $('#directorReal').val('director_0')
+    console.log($('#directorReal').val())
+});
+$('#makerName').focus(function() {
+    $('#makerReal').val('producer_0')
+    console.log($('#makerReal').val())
+});
 $('#actor1Name').autocomplete({
     source: actors,
     select: function(e, ui) {
@@ -37,13 +53,14 @@ $('#makerName').autocomplete({
 });
 
 function actorSearch(id) {
-    var n;
+    var n = 'actor_0';
     for (var i = 0; i < actors.length; i++) {
         if(actors[i].data == id) {
             n = actors[i].value;
-            return n;
+            break;
         }
     }
+    return n;
 }
 
 function directorSearch(id) {

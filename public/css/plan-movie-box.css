@@ -1,20 +1,19 @@
-.signup-in-box {
-
+.plan-movie-box {
     position: absolute;
-    width: 50vw;
-    left: 50%;
     top: 50%; 
-    padding: 40px; 
-    transform: translate(-50%, -50%);
-
+    left: 50%;
+    min-width: 33vw;
+    padding: 40px;
     font-family: 'Barlow Semi Condensed', 'Nanum Gothic';
     background-color: rgba(255, 255, 255, 0.55);
+
+    transform: translate(-50%, -50%);
 
     text-align: center;
 }
 
-.signup-in-box  input[type=text], input[type=password] {
-    width: 100%;
+.plan-movie-box  input[type=text], input[type=password] , input[type=tel], input[type=email], textarea{
+    width: 80%;
     padding: 12px 20px;
     margin: 8px 0;
     display: inline-block;
@@ -22,27 +21,19 @@
     box-sizing: border-box;
 }
 
-button {
+label {
+    display: block;
+}
+
+button, input[type=submit] {
     background-color: #373737;
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
     border: none;
     cursor: pointer;
-    width: 100%;
+    width: 80%;
 } 
-button:hover {
+button:hover, input[type=submit] {
     opacity: 0.8;
-}
-
-.radio-box input[type=radio]:checked:after {
-    content: '';
-    background: #373737
-}
-.radio-box input[type=radio]:checked:before {
-    content: '';
-    background: #373737
-}
-#login-err-span {
-    color: red;
 }

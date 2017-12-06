@@ -1,6 +1,7 @@
-$("#login-submit").click(function () {
+$("#login-form").submit(function (evt) {
 
     console.log('login')
+    evt.preventDefault();
     var formData = $("#login-form").serialize();
 
     $.ajax({
@@ -11,16 +12,14 @@ $("#login-submit").click(function () {
         success: function (data, status){
 
             if(data.success == true){
-                alert("로그인이 되었습니다.");
                 location.href='/main';
             }
             else if(data.success == false){
-                alert("로그인에 실패하였습니다.");
-                location.reload();
+                $('#login-err-span').text("로그인에 실패하였습니다.");
             }
         },
-        error: function (data, status) {
-            alert("서버 연결 실패");
+        error: function (data, status) { 
+            $('#login-err-span').text("서버 연결 실패");
         }
     });
 });

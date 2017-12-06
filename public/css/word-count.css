@@ -1,0 +1,21 @@
+#input-scenario {
+    width: 33vw;
+    height: auto;
+    position: relative;
+    display: inline-block;
+}
+#input-scenario textarea {
+    max-height: 65px;
+}
+#input-scenario span {
+    color: white;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+}
+#scenario-counter {
+  background:rgba(19, 16, 16, 0.637);
+  border-radius: 0.5em;
+  padding: 0 .5em 0 .5em;
+  font-size: 0.75em;
+}

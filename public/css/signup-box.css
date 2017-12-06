@@ -1,5 +1,4 @@
-.signup-in-box {
-
+.signup-box {
     position: absolute;
     width: 50vw;
     left: 50%;
@@ -13,7 +12,7 @@
     text-align: center;
 }
 
-.signup-in-box  input[type=text], input[type=password] {
+.signup-box  input[type=text], input[type=password] , input[type=tel], input[type=email]{
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -22,7 +21,7 @@
     box-sizing: border-box;
 }
 
-button {
+button, input[type=submit] {
     background-color: #373737;
     color: white;
     padding: 14px 20px;
@@ -31,18 +30,10 @@ button {
     cursor: pointer;
     width: 100%;
 } 
-button:hover {
+button:hover, input[type=submit] {
     opacity: 0.8;
 }
 
-.radio-box input[type=radio]:checked:after {
-    content: '';
-    background: #373737
-}
-.radio-box input[type=radio]:checked:before {
-    content: '';
-    background: #373737
-}
-#login-err-span {
-    color: red;
+.id-dup-check {
+    font-size: 15px;
 }

@@ -1,4 +1,5 @@
 .background-img {
+    background-attachment: fixed;
     overflow: hidden;
 }
 .background-img > img{
