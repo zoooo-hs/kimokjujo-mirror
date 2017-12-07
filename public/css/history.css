@@ -15,3 +15,32 @@ table {
 #planList table {
     border-collapse: collapse;
 }
+
+.a_button {
+    
+
+}
+
+a.a_button {
+    -webkit-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+    -moz-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+    -ms-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+    -o-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+    transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+    display: block;
+    margin: 20px auto;
+    max-width: 80px;
+    text-decoration: none;
+    border-radius: 4px;
+    padding: 10px 30px;
+}
+
+.a_button {
+    color: rgba(30, 22, 54, 0.6);
+    box-shadow: rgba(30, 22, 54, 0.4) 0 0px 0px 2px inset;
+}
+
+.a_button:hover {
+    color: rgba(255, 255, 255, 0.85);
+    box-shadow: rgba(30, 22, 54, 0.7) 0 0px 0px 40px inset;
+}
