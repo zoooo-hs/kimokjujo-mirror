@@ -8,7 +8,7 @@ $(document).ready(function() {
 
     $.ajax({
         type: "GET",
-        url: "/history",
+        url: "/fund",
         cache: false,
         success: function(data) {
 
