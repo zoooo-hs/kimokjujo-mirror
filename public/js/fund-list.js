@@ -22,7 +22,7 @@ $(document).ready(function() {
                     var actor1 = actorSearch(data.planMovies[i].actors[0]);
                     var actor2 = actorSearch(data.planMovies[i].actors[1]);
                     var genre = genreSearch(data.planMovies[i].planMovie.genre);
-                    var url = "/histories/" + data.planMovies[i].planMovie.id;
+                    var url = "/fund-list/" + data.planMovies[i].planMovie.id;
 
                     tableStrig += ('<tr>\n' +
                     '<td  width=50px>' + count + '</td>\n' +
