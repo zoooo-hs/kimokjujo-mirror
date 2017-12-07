@@ -25,7 +25,8 @@ router.get('/', function(req, res, next) {
                         for (var i in rows) {
                             var row = rows[i];
                             var planMovie = {};
-                            var actors = row.actorIds.split(',');
+                            // var actors = row.actorIds.split(',');
+                            var actors = ['actor_0', 'actor_0'];
                             planMovie = row;
                             delete row.actorIds;
 
