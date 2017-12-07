@@ -69,7 +69,7 @@ adapter.searchByPlanMovieId = function(planMovieId, cols, cb) {
 adapter.searchFundList = function(cb) {
 
     var resultCode = dbResultCode.Fail;
-    var sql = "SELECT * FROM (select planMovie from resultmovie  WHERE scenario != '' and contract = '') f, planmovie where f.planMovieId = planmovie.id";
+    var sql = "SELECT * FROM (select planMovieId from resultmovie  WHERE scenario != '' and contract = '') f, planmovie where f.planMovieId = planmovie.id";
 
     pool.getConnection(function(err, conn) {
         if (err) {
