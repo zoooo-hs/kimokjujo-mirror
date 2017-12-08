@@ -79,6 +79,8 @@ $.ajax({
 
         if(data.success == true) {
 
+            console.log(data);
+
             var origin = originalSearch(data.planMovie.original);
             var actor1 = actorSearch(data.actors[0]);
             var actor2 = actorSearch(data.actors[1]);
@@ -111,7 +113,7 @@ $.ajax({
                 breakEvenPoint = "실패";
             }
 
-            $('#title').text('제목 : ' + data.planMovie.title);
+            $('#title').text(data.planMovie.title);
             $('#_3words').text('세글자여부 : ' + words);
             $('#original').text('원작 : ' + origin);
             $('#budget').text('예산 : ' + data.planMovie.budget + ' 원');
