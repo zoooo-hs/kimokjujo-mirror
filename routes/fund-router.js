@@ -26,12 +26,23 @@ router.get('/', function(req, res, next) {
                         for (var i in rows) {
                             var row = rows[i];
                             var planMovie = {};
-                            // var actors = row.actorIds.split(',');
-                            var actors = ['actor_0', 'actor_0'];
-                            planMovie = row;
-                            delete row.actorIds;
+                            var planMovieResult = {};
 
-                            result.push({'planMovie': planMovie, 'actors': actors });
+                            // var actors = row.actorIds.split(',');
+                            var actors = rows[i].actors.split(',');
+
+                            delete row.actorId;
+                            delete row.audience;
+                            delete row.breakEvenPoint;
+                            delete row.contract;
+
+                            planMovie = row;
+
+                            planMovieResult = { 'date' : rows[i].date, 'scenario' : rows[i].scenario, 'audience' : rows[i].audience, 'breakEvenPoint' : rows[i].breakEvenPoint, 'contract':rows[i].contract};
+                            //planMovieResult: {date:날짜, scenario:시나리오, audience:관객수,breakEvenPoint:손익분기 달성여부, contract:체결여부}
+                            
+
+                            result.push({'planMovie': planMovie, 'actors': actors,'planMovieResult':planMovieResult });
 
                         }
 
