@@ -108,6 +108,9 @@ router.get('/:planMovieId', function (req, res, next) {
                                         if (returnJSON.success == true) {
                                             viewsAdapter.increaseViews(planMovieId, function (resultCode) {
                                                 if (resultCode == dbResultCode.OK) {
+
+                                                    // 여기서 라이크 숫자랑 내가 좋아하는지 여부 출력하면 된다
+
                                                     res.json(returnJSON);
                                                 }
                                                 else {
