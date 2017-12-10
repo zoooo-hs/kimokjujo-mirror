@@ -10,8 +10,11 @@ $('#contractButton').click(function() {
             type: "POST",
             url: "/contract",
             cache: false,
-            data: planMovieId,
+            data: {
+                'planMovieId': planMovieId
+            },
             success: function (data, status) {
+                console.log(data);
 
                 if (data.success == true) {
                     $('#contractButton').text("계약중...").prop('disabled', true);

@@ -1,6 +1,6 @@
 var router = require('express').Router();
 var contractAdapter = require('../adapters/contract-adapter'); 
-var mailAdapter = require('../adpaters/mail-adapter');
+var mailAdapter = require('../adapters/mail-adapter');
 var planMovieUserAdapter = require('../adapters/plan-movie-userdb-adapter');
 var user1Adapter = require('../adapters/user1db-adapter');
 
@@ -19,6 +19,7 @@ router.post('/', function (req, res) {
     else {
         contractAdapter.updateUserId(planMovieId, userId, function (resultCode) {
             if(resultCode == dbResultCode.Fail){
+                console.log('contract update user id has an error');
                 res.json({success: false});
             }
             else{
@@ -26,8 +27,8 @@ router.post('/', function (req, res) {
                 planMovieUserAdapter.searchByPlanMovieId(planMovieId, [], function(resultCode, rows) {
                     if (resultCode == dbResultCode.OK || rows.length == 1) {
                         var receiver = rows[0];
-                        user1Adapter.search(userId, cols, function(resultCode, rows) {
-                            if (resultCode == dbResultCode.OK || rows.length == 1) {
+                        user1Adapter.search(userId, [], function(resultCode, rows) {
+                            if (resultCode == dbResultCode.OK && rows.length == 1) {
                                 var requester = rows[0];
 
                                 var title = '[KIMOKJUJO.CO] New Contract Request!';
@@ -47,15 +48,16 @@ router.post('/', function (req, res) {
                                 }); 
                             }
                             else {
+                                console.log('user1 db error or rows length error');
                                 res.json({success: false});
                             } 
                         });
                     }
                     else { 
+                        console.log('planMovie User error')
                         res.json({success: false});
                     }
                 }); 
-                res.json({success: false});
             }
         });
     }
