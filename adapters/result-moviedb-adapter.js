@@ -69,8 +69,8 @@ adapter.searchByPlanMovieId = function(planMovieId, cols, cb) {
 adapter.searchFundList = function(cb) {
 
     var resultCode = dbResultCode.Fail;
-    var sql = "SELECT * FROM (select planMovieId from resultmovie  WHERE scenario != '' and contract = '') f, planmovie where f.planMovieId = planmovie.id";
-
+    var sql = 'SELECT *, group_concat(actorId) as actors FROM (select * from resultmovie  WHERE scenario != \'\' and contract = \'\') f, planmovie, planmovieactor where f.planMovieId = planmovie.id and planmovieactor.planMovieId = f.planMovieId group by planMovie.id' ;
+     
     pool.getConnection(function(err, conn) {
         if (err) {
             console.log(err);
