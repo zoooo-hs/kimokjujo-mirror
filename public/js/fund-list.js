@@ -14,6 +14,8 @@ $(document).ready(function() {
 
             if(data.success == true) {
 
+                console.log(data)
+
                 var tableStrig = '';
                 tableStrig += '<table>';
                 for (var i = 0; i < data.planMovies.length; i++) {

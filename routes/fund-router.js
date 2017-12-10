@@ -32,6 +32,8 @@ router.get('/', function (req, res, next) {
 
                             // var actors = row.actorIds.split(',');
                             var actors = rows[i].actors.split(',');
+                            var likeCount = rows[i].likeCount;
+                            var views = rows[i].views;
 
                             delete row.actorId;
                             delete row.audience;
@@ -43,11 +45,11 @@ router.get('/', function (req, res, next) {
 
                             delete planMovie.planMovieId;
 
-                            planMovieResult = { 'date': rows[i].date, 'scenario': rows[i].scenario, 'audience': rows[i].audience, 'breakEvenPoint': rows[i].breakEvenPoint, 'contract': rows[i].contract };
+                            planMovieResult = { 'date': rows[i].date, 'scenario': rows[i].scenario, 'audience': rows[i].audience, 'breakEvenPoint': rows[i].breakEvenPoint, 'contract': rows[i].contract, 'views': views };
                             //planMovieResult: {date:날짜, scenario:시나리오, audience:관객수,breakEvenPoint:손익분기 달성여부, contract:체결여부}
 
 
-                            result.push({ 'planMovie': planMovie, 'actors': actors, 'planMovieResult': planMovieResult });
+                            result.push({ 'planMovie': planMovie, 'actors': actors, 'planMovieResult': planMovieResult, 'likeCount': likeCount });
 
                         }
 
