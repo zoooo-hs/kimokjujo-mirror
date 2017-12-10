@@ -109,7 +109,6 @@ router.route('/').post(function(req, res, next){
                                             listActorPowerAdapter.getList([req.body.actor1Id, req.body.actor2Id], function(resultCode, similarActorList) {
                                                 if (resultCode == dbResultCode.OK) {
 
-                                                    returnJSON.success = true;
                                                     returnJSON.planMovie = planMovie;
                                                     delete returnJSON.planMovie.id;
                                                     returnJSON.actors = [req.body.actor1Id, req.body.actor2Id];
@@ -125,6 +124,7 @@ router.route('/').post(function(req, res, next){
 
                                                     resultMovieAdapter.write(resultMovie, function(resultCode) {
                                                         if (resultCode == dbResultCode.OK) {
+                                                            returnJSON.success = true;
                                                             res.json(returnJSON); 
                                                         }
                                                         else {

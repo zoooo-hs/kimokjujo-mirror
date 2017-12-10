@@ -117,6 +117,10 @@ function actorSorting(object) {
 
 
 $('#plan-movie-form').submit(function(evt){
+
+    var budgetBefore = $('.budget-input > input')[0].value
+    $('.budget-input > input')[0].value = parseInt(budgetBefore) * 10000000;
+
     var formData = $("#plan-movie-form").serialize();
     evt.preventDefault();
 

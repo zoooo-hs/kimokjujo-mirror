@@ -7,6 +7,7 @@ class ResultMovie {
      this.audience = audience;
      this.breakEvenPoint = breakEvenPoint;
      this.contract = contract;
+     this.views = 0;
     }
 
     set scenario(newScenario) {

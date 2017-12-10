@@ -25,6 +25,7 @@ router.get('/', function (req, res, next) {
 
                 resultMovieAdapter.searchFundList(function (resultCode, rows) {
                     if (resultCode == dbResultCode.OK) {
+                        console.log(rows);
                         for (var i in rows) {
                             var row = rows[i];
                             var planMovie = {};
@@ -114,7 +115,7 @@ router.get('/:planMovieId', function (req, res, next) {
                                                     
                                                     likeAdapter.countLike(planMovieId, function(resultCode, rows){
                                                         if (resultCode == dbResultCode.OK) {
-                                                            returnJSON.likeCount = rows[0].cnt;
+                                                            returnJSON.likeCount = rows[0].cnt - 1;
                                                             if(rows[0].cnt != 0 ){
                                                                 likeAdapter.searchMine(userId, planMovieId, function(resultCode, rows){
                                                                     if(resultCode == dbResultCode.OK && rows.length != 0){
