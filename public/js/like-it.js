@@ -19,15 +19,17 @@ $('.like-box').click(function() {
                 if (myLike == false) {
 
                     $('.like-message').text('"좋아요"를 선택하셨습니다.');
-                    $('.like-message').fadeIn(500);
-                    $('.like-message').fadeOut(500);
-                    $('.like-box').css("background-color", "rgba(255, 255, 0, 0.3)");
+                    $('.like-message-box').fadeIn(700);
+                    $('.like-message-box').fadeOut(700);
+                    $('.like-cnt').css("background-color", "rgba(255, 255, 0, 0.3)");
+                    $('.like-message-box').css("background-color", "rgba(255, 255, 0, 0.3)");
                     myLike = true;
                 } else {
                     $('.like-message').text('"좋아요"를 취소하였습니다.');
-                    $('.like-message').fadeIn(500);
-                    $('.like-message').fadeOut(500);
-                    $('.like-box').css("background-color", "rgba(255, 255, 255, 0.3)");
+                    $('.like-message-box').fadeIn(700);
+                    $('.like-message-box').fadeOut(700);
+                    $('.like-cnt').css("background-color", "rgba(142, 142, 142, 0.7)");
+                    $('.like-message-box').css("background-color", "rgba(142, 142, 142, 0.7)");
                     myLike = false;
                 }
 
