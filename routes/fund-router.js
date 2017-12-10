@@ -3,15 +3,16 @@ var sessionAdapter = require('../adapters/sessiondb-adapter');
 var planMovieAdapter = require('../adapters/plan-moviedb-adapter');
 var resultMovieAdapter = require('../adapters/result-moviedb-adapter');
 var planMovieActorAdapter = require('../adapters/plan-movie-actordb-adapter');
+var viewsAdapter = require('../adapters/views-adapter');
 
 const dbResultCode = require('../status-codes/db-result');
 
 // host/history : return histories data 
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
 
     var sessionKey = req.cookies.sessionkey;
 
-    var returnJSON = {success: false};
+    var returnJSON = { success: false };
 
     sessionAdapter.search(sessionKey, null, function (resultCode, rows) {
 
@@ -21,7 +22,7 @@ router.get('/', function(req, res, next) {
 
                 var result = [];
 
-                resultMovieAdapter.searchFundList(function(resultCode, rows) {
+                resultMovieAdapter.searchFundList(function (resultCode, rows) {
                     if (resultCode == dbResultCode.OK) {
                         for (var i in rows) {
                             var row = rows[i];
@@ -38,11 +39,11 @@ router.get('/', function(req, res, next) {
 
                             planMovie = row;
 
-                            planMovieResult = { 'date' : rows[i].date, 'scenario' : rows[i].scenario, 'audience' : rows[i].audience, 'breakEvenPoint' : rows[i].breakEvenPoint, 'contract':rows[i].contract};
+                            planMovieResult = { 'date': rows[i].date, 'scenario': rows[i].scenario, 'audience': rows[i].audience, 'breakEvenPoint': rows[i].breakEvenPoint, 'contract': rows[i].contract };
                             //planMovieResult: {date:날짜, scenario:시나리오, audience:관객수,breakEvenPoint:손익분기 달성여부, contract:체결여부}
-                            
 
-                            result.push({'planMovie': planMovie, 'actors': actors,'planMovieResult':planMovieResult });
+
+                            result.push({ 'planMovie': planMovie, 'actors': actors, 'planMovieResult': planMovieResult });
 
                         }
 
@@ -65,67 +66,81 @@ router.get('/', function(req, res, next) {
         }
     });
 });
-router.get('/:planMovieId',function(req, res, next){
+router.get('/:planMovieId', function (req, res, next) {
 
     // 여기서 플랜무비 찾고 리절트 찾고 액터 찾고 다 해야 보낼 수 있음
-    
-        console.log(req.cookies);
-    
-        var planMovieId = req.params.planMovieId;
-        var sessionKey = req.cookies.sessionkey;
-    
-        sessionAdapter.search(sessionKey, null, function (resultCode, rows) {
-    
-            if (resultCode == dbResultCode.OK) {
-                if (rows.length != 0) {
-                    var userId = rows[0].userId;
 
-                    planMovieAdapter.search(planMovieId, [] , function(resultCode, planMovie) {
+    console.log(req.cookies);
 
-                        if (resultCode == dbResultCode.OK) {
-                            resultMovieAdapter.searchByPlanMovieId(planMovieId, [], function(resultCode, resultMoive) {
-                                if (resultCode == dbResultCode.OK) {
-                                    planMovieActorAdapter.searchByPlanMovieId(planMovieId, [], function(resultCode, actors) {
-                                        if (resultCode == dbResultCode.OK) {
+    var planMovieId = req.params.planMovieId;
+    var sessionKey = req.cookies.sessionkey;
 
-                                            var returnJSON = {success: true};
-                                            try {
-                                                returnJSON.planMovie = planMovie[0];
-                                                returnJSON.planMovieResult = resultMoive[0];
-                                                returnJSON.actors = [];
-                                                for (var i in actors) {
-                                                    returnJSON.actors.push(actors[i].actorId);
-                                                } 
+    sessionAdapter.search(sessionKey, null, function (resultCode, rows) {
+
+        if (resultCode == dbResultCode.OK) {
+            if (rows.length != 0) {
+                var userId = rows[0].userId;
+
+                planMovieAdapter.search(planMovieId, [], function (resultCode, planMovie) {
+
+                    if (resultCode == dbResultCode.OK) {
+                        resultMovieAdapter.searchByPlanMovieId(planMovieId, [], function (resultCode, resultMoive) {
+                            if (resultCode == dbResultCode.OK) {
+                                planMovieActorAdapter.searchByPlanMovieId(planMovieId, [], function (resultCode, actors) {
+                                    if (resultCode == dbResultCode.OK) {
+
+                                        var returnJSON = { success: true };
+                                        try {
+                                            returnJSON.planMovie = planMovie[0];
+                                            returnJSON.planMovieResult = resultMoive[0];
+                                            returnJSON.actors = [];
+                                            for (var i in actors) {
+                                                returnJSON.actors.push(actors[i].actorId);
                                             }
-                                            catch (e) {
-                                                returnJSON.success = false;
-                                            }
-                                            res.json(returnJSON); 
                                         }
-                                        else { 
-                                            res.json({ success: false });
+                                        catch (e) {
+                                            returnJSON.success = false;
                                         }
-                                    });
-                                }
-                                else {
-                                    res.json({ success: false });
-                                }
-                            });
-                        }
-                        else {
-                            res.json({success: false});
-                        }
 
-                    });
-                }
-                else {
-                    next();
-                }
+                                        if (returnJSON.success == true) {
+                                            viewsAdapter.increaseViews(planMovieId, function (resultCode) {
+                                                if (resultCode == dbResultCode.OK) {
+                                                    res.json(returnJSON);
+                                                }
+                                                else {
+                                                    res.json({success:false});
+                                                }
+                                            });
+                                        }
+                                        else {
+                                            res.json({success: false});
+                                        }
+                                        res.json(returnJSON);
+                                    }
+                                    else {
+                                        res.json({ success: false });
+                                    }
+                                });
+                            }
+                            else {
+                                res.json({ success: false });
+                            }
+                        });
+                    }
+                    else {
+                        res.json({ success: false });
+                    }
+
+                });
             }
             else {
                 next();
             }
-        });
-    
+        }
+        else {
+            next();
+        }
     });
+
+});
 module.exports = router;
