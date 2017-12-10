@@ -3,7 +3,7 @@ var contractAdapter = require('../adapters/contract-adapter');
 
 const dbResultCode = require('../status-codes/db-result');
 
-router.post('/', function (req, res, next) {
+router.post('/', function (req, res) {
 
     var userId = req.cookies.userId;
     var planMovieId = req.cookies.planMovieId;
@@ -19,7 +19,7 @@ router.post('/', function (req, res, next) {
             }
             else{
                 //메일을 보낸다!  
-                res,json({success: true});
+                res.json({success: true});
             }
         });
     }

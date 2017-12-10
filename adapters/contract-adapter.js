@@ -5,7 +5,7 @@ var adapter = {};
 
 adapter.updateUserId = function(planMovieId, userId, cb){
     
-    var p = [planMovieId,userId];
+    var p = [userId, planMovieId];
     //SET SQL_SAFE_UPDATES =0;
     var sql = "UPDATE resultmovie set contract = ? where planMovieId = ?;";
 
