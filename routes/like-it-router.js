@@ -1,6 +1,6 @@
 var router = require('express').Router();
 var sessionAdapter = require('../adapters/sessiondb-adapter');
-var likeItAdapter = require('../adapters');
+var likeItAdapter = require('../adapters/like-it-adapter');
 
 const dbResultCode = require('../status-codes/db-result');
 
@@ -47,3 +47,5 @@ router.post('/', function (req, res) {
         }
     });
 });
+
+module.exports = router;

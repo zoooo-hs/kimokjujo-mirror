@@ -17,6 +17,7 @@ var fundListRouter = require('./routes/fund-list-router');
 var fundRouter = require('./routes/fund-router');
 var actorTrendRouter = require('./routes/actor-trend-router');
 var contractRouter = require('./routes/contract-router');
+var likeItRouter = require('./routes/like-it-router');
 
 var app = express();
 
@@ -44,6 +45,7 @@ app.use('/fund-list', fundListRouter);
 app.use('/fund', fundRouter);
 app.use('/actor-trend', actorTrendRouter);
 app.use('/contract', contractRouter);
+app.use('/like-it', likeItRouter);
 
 app.get('/test', function(req,res, next) {
   require('./adapters/send-html').sendHTML('result-test', res, next);

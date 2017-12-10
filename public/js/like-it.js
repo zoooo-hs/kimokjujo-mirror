@@ -7,7 +7,9 @@ $('.like-box').click(function() {
         type: "POST",
         url: "/like-it",
         cache: false,
-        data: planMovieId,
+        data: {
+            'planMovieId': planMovieId 
+        },
         success: function (data, status){
 
             if(data.success == true){
