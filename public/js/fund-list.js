@@ -6,7 +6,6 @@ function fundListTable(fund_info){
 
     for (var i = 0; i < fund_info.length; i++) {
 
-        console.log(fund_info)
         tableStrig += ('<tr>\n' +
             '<td  width=50px>' + fund_info[i].planMovie.id + '</td>\n' +
             '<td  width=300px>' + fund_info[i].planMovie.title +'                  배우: ' + actorSearch(fund_info[i].actors[0]) + ', ' + actorSearch(fund_info[i].actors[1]) +'</td>\n' +
@@ -20,6 +19,7 @@ function fundListTable(fund_info){
 
     tableStrig += '</table>';
     $(tableStrig).appendTo('#planList');
+    console.log(fund_info)
 }
 
 function timeSorting(a, b) {
@@ -78,10 +78,12 @@ $(document).ready(function() {
             fundListTable(fund_info);
         } else if(select == 1) { // 인기
             $('#planList').empty();
+            fund_info.sort(timeSorting);
             fund_info.sort(likeSorting);
             fundListTable(fund_info);
         } else if(select == 2) { // 조회
             $('#planList').empty();
+            fund_info.sort(timeSorting);
             fund_info.sort(viewSorting);
             fundListTable(fund_info);
         }

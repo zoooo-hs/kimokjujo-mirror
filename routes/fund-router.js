@@ -115,7 +115,7 @@ router.get('/:planMovieId', function (req, res, next) {
                                                     
                                                     likeAdapter.countLike(planMovieId, function(resultCode, rows){
                                                         if (resultCode == dbResultCode.OK) {
-                                                            returnJSON.likeCount = rows[0].cnt - 1;
+                                                            returnJSON.likeCount = rows[0].cnt;
                                                             if(rows[0].cnt != 0 ){
                                                                 likeAdapter.searchMine(userId, planMovieId, function(resultCode, rows){
                                                                     if(resultCode == dbResultCode.OK && rows.length != 0){

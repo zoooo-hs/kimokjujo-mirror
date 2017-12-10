@@ -147,7 +147,7 @@ adapter.searchByplanMovieId = function (planMovieId, cb) {
 
 adapter.countLike = function (planMovieId, cb) {
 
-    var query = 'select count(*) as cnt from likeit where likeit.planMovieId = ?';
+    var query = 'select count(*) -1 as cnt from likeit where likeit.planMovieId = ?';
     var parameter = [planMovieId];
     var resultCode;
 
