@@ -4,6 +4,7 @@ var planMovieAdapter = require('../adapters/plan-moviedb-adapter');
 var resultMovieAdapter = require('../adapters/result-moviedb-adapter');
 var planMovieActorAdapter = require('../adapters/plan-movie-actordb-adapter');
 var viewsAdapter = require('../adapters/views-adapter');
+var likeAdapter = require('../adapters/like-it-adapter');
 
 const dbResultCode = require('../status-codes/db-result');
 
@@ -108,10 +109,38 @@ router.get('/:planMovieId', function (req, res, next) {
                                         if (returnJSON.success == true) {
                                             viewsAdapter.increaseViews(planMovieId, function (resultCode) {
                                                 if (resultCode == dbResultCode.OK) {
-
+                                                    
+                                                    likeAdapter.countLike(planMovieId, function(resultCode, rows){
+                                                        if (resultCode == dbResultCode.OK) {
+                                                            returnJSON.likeCount = rows[0].cnt;
+                                                            if(rows[0].cnt != 0 ){
+                                                                likeAdapter.searchMine(userId, planMovieId, function(resultCode, rows){
+                                                                    if(resultCode == dbResultCode.OK && rows.length != 0){
+                                                                        returnJSON.myLike = true;
+                                                                        console.log('myLike:true');
+                                                                        res.json(returnJSON);
+                                                                    }
+                                                                    else if(resultCode == dbResultCode.OK && rows.length == 0){
+                                                                        returnJSON.myLike = false;
+                                                                        console.log('myLike:false');
+                                                                        res.json(returnJSON);
+                                                                    }
+                                                                    else{
+                                                                        res.json({success : false});
+                                                                    }
+                                                                });   
+                                                            }
+                                                            else {
+                                                                returnJSON.mylike = false;
+                                                                console.log('myLike:false');
+                                                                res.json(returnJSON);
+                                                            }
+                                                        }
+                                                        else {
+                                                            res.json({success: false});
+                                                        }
+                                                    });
                                                     // 여기서 라이크 숫자랑 내가 좋아하는지 여부 출력하면 된다
-
-                                                    res.json(returnJSON);
                                                 }
                                                 else {
                                                     res.json({success:false});

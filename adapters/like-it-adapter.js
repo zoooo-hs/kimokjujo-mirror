@@ -83,6 +83,37 @@ adapter.searchByuserId = function (userId, cb) {
     });
 };
 
+adapter.searchMine = function (userId, planMovieId, cb) {
+    
+        var query = 'select * from likeit where likeit.user1Id = ? and likeit.planMovieId = ?';
+        var parameter = [userId, planMovieId];
+        var resultCode = dbResultCode.Fail;
+    
+        pool.getConnection(function (err, conn) {
+            if (err) {
+                console.log(err);
+                resultCode = dbResultCode.Fail;
+                conn.release();
+                cb(resultCode, []);
+            }
+            else {
+                conn.query(query, parameter, function (err, rows) {
+                    if (err) {
+                        console.log(err);
+                        conn.release();
+                        resultCode = dbResultCode.Fail;
+                        cb(resultCode, []);
+                    }
+                    else {
+                        resultCode = dbResultCode.OK;
+                        conn.release();
+                        cb(resultCode, rows);
+                    }
+                });
+            }
+        });
+    };
+
 adapter.searchByplanMovieId = function (planMovieId, cb) {
 
     var query = 'select * from likeit where likeit.planMovieId = ?';
