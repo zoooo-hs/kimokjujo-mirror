@@ -43,20 +43,22 @@ adapter.search = function(user2Id,cols,cb){
         if (err) { 
             console.log(err)
             result = dbResultCode.Fail;
+            connection.release();
             cb(result, []);
         }
         else {
             connection.query(s, parameter, function (err, rows) {
                 if (!err) {
                     result = dbResultCode.OK;
+                    connection.release();
                     cb(result, rows);
                 }
                 else {
                     console.log(err)
                     result = dbResultCode.Fail;
+                    connection.release();
                     cb(result, []);
                 }
-                connection.release();
             });
         }
     });
