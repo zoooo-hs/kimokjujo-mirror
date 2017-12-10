@@ -1,13 +1,20 @@
 .like-box{filter: url('#filter');
 }
 
+.like-box {
+    position: relative;
+    top: 100px;
+    right: 15px;
+}
+.like-box > * {
+    display: block;
+}
+
 .like-cnt{
-    position: absolute;
     cursor: pointer;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);     background: rgba(255,255,255,0.3);     width: 60px;
-    height: 60px;
+    background: rgba(142, 142, 142, 0.7);
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     text-align: center;
     line-height: 75px;
@@ -17,6 +24,27 @@
     color: #fff;
 }
 
+.material-icons{
+    font-size: 25px;
+    position: relative;
+    bottom: 20%;
+}
 
-::-moz-selection { background: transparent;}
-::selection {background: transparent;}
+.like-count-box{
+    font-size: 20px;
+    width: inherit;
+    text-align: center;
+}
+
+.like-message-box{
+    position : absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 30px;
+    width: 50vw;
+    text-align: center;
+    color: #ffffff;
+    padding: 50px;
+}
+

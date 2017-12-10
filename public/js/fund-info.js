@@ -129,6 +129,12 @@ $.ajax({
 
             $('#audience').text('관객수 예상 : ' + data.planMovieResult.audience + ' 명');
             $('#breakEvenPoint').text('손익분기달성여부 : ' + breakEvenPoint);
+            $('.like-count').text(data.likeCount);
+
+            if(myLike == true) {
+                $('.like-cnt').css("background", "rgba(255, 255, 0, 0.3)");
+            }
+
         } else {
             alert('서버 문제가 발생했습니다.\n다시 시도해 주시기 바랍니다. ');
         }
