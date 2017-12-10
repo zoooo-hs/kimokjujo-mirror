@@ -5,6 +5,7 @@
     position: relative;
     top: 100px;
     right: 15px;
+    height: 70px;
 }
 .like-box > * {
     display: block;
