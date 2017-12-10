@@ -66,7 +66,7 @@ if($.cookie('userType') == 1) {
 } else {
     $('#user2-main').show();
 }
-
+var myLike = false;
 var l = location.href.split('/');
 var planMovieId = l[l.length - 1];
 
@@ -81,6 +81,7 @@ $.ajax({
 
             console.log(data);
 
+            myLike = data.myLike;
             var origin = originalSearch(data.planMovie.original);
             var actor1 = actorSearch(data.actors[0]);
             var actor2 = actorSearch(data.actors[1]);
