@@ -37,6 +37,9 @@ router.get('/', function(req, res, next) {
                             delete row.contract;
 
                             planMovie = row;
+                            planMovie.id = planMovie.planMovieId;
+
+                            delete planMovie.planMovieId;
 
                             planMovieResult = { 'date' : rows[i].date, 'scenario' : rows[i].scenario, 'audience' : rows[i].audience, 'breakEvenPoint' : rows[i].breakEvenPoint, 'contract':rows[i].contract};
                             //planMovieResult: {date:날짜, scenario:시나리오, audience:관객수,breakEvenPoint:손익분기 달성여부, contract:체결여부}

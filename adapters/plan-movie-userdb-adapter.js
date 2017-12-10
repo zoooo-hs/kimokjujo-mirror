@@ -3,7 +3,7 @@ var pool = require('../adapters/mysql-pool');
 
 var adapter = {}
 
-adpater.searchByPlanMovieId = function (planMovieId, cols, cb) {
+adapter.searchByPlanMovieId = function (planMovieId, cols, cb) {
 
     var resultCode;
 
