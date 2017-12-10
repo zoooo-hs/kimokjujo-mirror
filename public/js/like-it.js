@@ -15,6 +15,7 @@ $('.like-box').click(function() {
                 $('.like-count').text(data.likeCount);
 
                 if (myLike == false) {
+
                     $('.like-message').text('"좋아요"를 선택하셨습니다.');
                     $('.like-message').fadeIn(500);
                     $('.like-message').fadeOut(500);
