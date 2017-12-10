@@ -65,9 +65,21 @@
     <div class="history-box">
         <div class="title-box">
             <h1>FUND LIST</h1>
-            <span>THEY ARE HUNGRY</span> 
+            <span>THEY ARE HUNGRY</span>
             <table>
-            <tr><th rowspan="2" width=50px>NO.</th><th width=300px>TITLE</th><th rowspan="2" width=100px>GENRE</th><th rowspan="2" width=50px></th></tr></table>
+                <tr>
+                    <th rowspan="2" width=50px>NO.</th>
+                    <th width=300px>TITLE</th>
+                    <th rowspan="2" width=100px>GENRE</th>
+                    <th rowspan="2" width=50px>
+                        <select class="list-box" id="list-view" value="none">
+                            <option value="time">최신순</option>
+                            <option value="popular">인기순많은</option>
+                            <option value="views">조회순</option>
+                        </select>
+                    </th>
+                </tr>
+            </table>
         </div>
         <div class="history-list-box"> 
             <div id="planList">
